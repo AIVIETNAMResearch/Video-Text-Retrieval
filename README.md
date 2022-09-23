@@ -33,7 +33,7 @@ wget -P ./modules https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b5
 ## Training
 
 <details open>
-<summary>CLIP4Clip</summary>
+<summary><b>CLIP4Clip</b></summary>
 
 <details open>
 <summary>Install</summary>
@@ -75,7 +75,7 @@ main_task_retrieval.py --do_train --num_thread_reader=0 \
 </details>
 
 <details open>
-<summary>X-Clip</summary>
+<summary><b>X-Clip</b></summary>
 
 <details open>
 <summary>Install</summary>
@@ -89,6 +89,9 @@ Clone repo and install requirements
 ```
 
 </details>
+
+<details open>
+<summary>Training</summary>
 
 <details open>
 <summary>ViT-B/32</summary>
@@ -137,6 +140,8 @@ job_name="xclip_msrvtt_vit16"
     --loose_type --linear_patch 2d --sim_header seqTransf \
     --pretrained_clip_name ViT-B/16 2>&1 | tee -a log/${job_name}
 ```
+
+</details>
 
 </details>
 
