@@ -9,7 +9,7 @@
 import googletrans
 import translate
 import underthesea
-from pyvi import ViUtils
+from pyvi import ViUtils, ViTokenizer
 
 class Translation():
     def __init__(self, from_lang='vi', to_lang='en', mode='google'):
@@ -43,10 +43,23 @@ class Translation():
         return self.translator.translate(text) if self.__mode in 'translate' \
                 else self.translator.translate(text, dest=self.__to_lang).text
 
-
 class Text_Preprocessing():
-    def __init__(self):
-        pass
+    def __init__(self, stopwords_path='./dict/vietnamese-stopwords-dash.txt'):
+        with open(stopwords_path, 'rb') as f:
+            lines = f.readlines()
+        self.stop_words = [line.decode('utf8').replace('\n','') for line in lines]
+
+    def remove_stopwords(self, text):
+        """
+        - Tokenize the text
+        - Remove stopwords
+        - Return the text
+        
+        :param text: The text to be cleaned
+        :return: A string of words that are not in the stopwords list.
+        """
+        text = ViTokenizer.tokenize(text)
+        return " ".join([w for w in text.split() if w not in self.stop_words])
 
     def lowercasing(self, text):
         return text.lower() 
@@ -117,6 +130,7 @@ class Text_Preprocessing():
         :return: The categories of the text.
         """
         text = self.lowercasing(text)
+        text = self.remove_stopwords(text)
         # text = self.remove_accents(text)
         # text = self.add_accents(text)
         text = self.text_norm(text)
