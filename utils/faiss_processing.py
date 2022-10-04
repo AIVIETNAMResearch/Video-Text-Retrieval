@@ -7,12 +7,10 @@ import os
 from PIL import Image
 import math
 
-class MyFaiss():
-  def __init__(self, root_database: str, bin_file: str, json_path: str):
+class File4Faiss():
+  def __init__(self, root_database: str):
     self.root_database = root_database
-    self.index = self.load_bin_file(bin_file)
-    self.id2img_fps = self.load_json_file(json_path)
-  
+
   def write_json_file(self, json_path: str):
     des_path = os.path.join(json_path, "keyframes_id.json")
     files = []
@@ -31,11 +29,6 @@ class MyFaiss():
       f.write(json.dumps(id2img_fps))
     print(f'Saved {des_path}')
 
-  def load_json_file(self, json_path: str):
-      with open(json_path, 'r') as f:
-        js = json.loads(f.read())
-      return {int(k):v for k,v in js.items()}
-
   def write_bin_file(self, bin_path: str, method='L2', feature_shape=512):
     feature_paths = sorted(glob.glob(f'{self.root_database}/CLIPFeatures_C0*_V00'))
     if method in 'L2':
@@ -45,7 +38,7 @@ class MyFaiss():
     else:
       assert f"{method} not supported"
 
-    for feat_path in tqdm_notebook(feature_paths):
+    for feat_path in feature_paths:
       video_paths = sorted(glob.glob(f"{feat_path}/*"))
       for video in video_paths:
         feats = np.load(video)
@@ -55,6 +48,17 @@ class MyFaiss():
     
     faiss.write_index(index, os.path.join(bin_path, f"faiss_{method}.bin"))
     print(f'Saved {os.path.join(bin_path, f"faiss_{method}.bin")}')
+
+class MyFaiss():
+  def __init__(self, root_database: str, bin_file: str, json_path: str):
+    self.root_database = root_database
+    self.index = self.load_bin_file(bin_file)
+    self.id2img_fps = self.load_json_file(json_path)
+  
+  def load_json_file(self, json_path: str):
+      with open(json_path, 'r') as f:
+        js = json.loads(f.read())
+      return {int(k):v for k,v in js.items()}
 
   def load_bin_file(self, bin_file: str):
     return faiss.read_index(bin_file)
@@ -83,13 +87,13 @@ class MyFaiss():
     return scores, idx_image, image_paths
 
 def main():
-    # cosine_faiss.write_json_file(json_path='./')
-    # cosine_faiss.write_bin_file(bin_path='./', method='cosine')
+  # create_file = File4Faiss('./Database')
+  # create_file.write_json_file(json_path='./')
+  # create_file.write_bin_file(bin_path='./', method='cosine')
 
-  bin_file='/content/drive/MyDrive/Video_Retrieval/faiss_cosine.bin'
-  json_path = '/content/keyframes_id.json'
-
-  cosine_faiss = MyFaiss('/content/drive/MyDrive/AIC_HCM/paddle/dataset', bin_file, json_path)
+  bin_file='./faiss_cosine.bin'
+  json_path = './keyframes_id.json'
+  cosine_faiss = MyFaiss('./Database', bin_file, json_path)
 
   #### Testing ####
   id_query=100
