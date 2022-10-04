@@ -5,12 +5,22 @@ import os
 import numpy as np
 import pandas as pd
 import json
+from utils.faiss_processing import MyFaiss
+
 # http://0.0.0.0:5001/thumbnailimg?index=0
 
 
 # app = Flask(__name__, template_folder='templates', static_folder='static')
 app = Flask(__name__, template_folder='templates')
 
+# Faiss
+bin_file='dict/faiss_cosine.bin'
+json_path = 'dict/keyframes_id.json'
+
+CosineFaiss = MyFaiss('Database', bin_file, json_path)
+DictImagePath = CosineFaiss.id2img_fps
+LenDictPath = len(DictImagePath)
+# CosineFaiss.id2img_fps
 
 @app.route('/thumbnailimg')
 def thumbnailimg():
@@ -22,20 +32,56 @@ def thumbnailimg():
 
     imgperindex = 100
     
-    imgpath = request.args.get('imgpath') + "/"
+    # imgpath = request.args.get('imgpath') + "/"
     pagefile = []
-    filelist = os.listdir(imgpath)
-    if len(filelist)-1 > index+imgperindex:
-        page_filelist = filelist[index*imgperindex:index*imgperindex+imgperindex]
+
+    page_filelist = []
+    list_idx = []
+
+    if LenDictPath-1 > index+imgperindex:
+        first_index = index * imgperindex
+        last_index = index*imgperindex + imgperindex
+
+        tmp_index = first_index
+        while tmp_index < last_index:
+            page_filelist.append(DictImagePath[tmp_index])
+            list_idx.append(tmp_index)
+            tmp_index += 1    
     else:
-        page_filelist = filelist[index*imgperindex:len(filelist)]
+        first_index = index * imgperindex
+        last_index = LenDictPath
 
-    for fname in page_filelist:
-        pagefile.append({'imgpath': imgpath, 'fname': fname})
+        tmp_index = first_index
+        while tmp_index < last_index:
+            page_filelist.append(DictImagePath[tmp_index])
+            list_idx.append(tmp_index)
+            tmp_index += 1    
 
-    data = {'num_page': int(len(filelist)/imgperindex)+1, 'pagefile': pagefile}
+    for imgpath, id in zip(page_filelist, list_idx):
+        pagefile.append({'imgpath': imgpath, 'id': id})
 
+    data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
+    
     return render_template('index_thumb.html', data=data)
+
+@app.route('/knn')
+def knn_search():
+    print("knn search")
+    pagefile = []
+    id_query = int(request.args.get('imgid'))
+    _, list_idx, list_image_paths = CosineFaiss(id_query, k=200)
+
+    print(list_image_paths[0])
+    print(list_idx[0])
+    imgperindex = 100 
+
+    for imgpath, id in zip(list_image_paths, list_idx):
+        pagefile.append({'imgpath': imgpath, 'id': int(id)})
+
+    data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
+    
+    return render_template('index_thumb.html', data=data)
+
 
 
 @app.route('/get_img')
@@ -48,8 +94,10 @@ def get_img():
     if os.path.exists(fpath):
         img = cv2.imread(fpath)
     else:
+        print("load 404.jph")
         img = cv2.imread("./static/images/404.jpg")
 
+    # print(img.shape)
     img = cv2.putText(img, image_name, (30, 80), cv2.FONT_HERSHEY_SIMPLEX, 
                    3, (255, 0, 0), 4, cv2.LINE_AA)
 

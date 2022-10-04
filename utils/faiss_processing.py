@@ -77,10 +77,11 @@ class MyFaiss():
     idx_image = idx_image.flatten()
     image_paths = list(map(self.id2img_fps.get, list(idx_image)))
     
-    print(f"scores: {scores}")
-    print(f"idx: {idx_image}")
-    print(f"paths: {image_paths}")
+    # print(f"scores: {scores}")
+    # print(f"idx: {idx_image}")
+    # print(f"paths: {image_paths}")
     return scores, idx_image, image_paths
+
 
 def main():
     # cosine_faiss.write_json_file(json_path='./')

@@ -137,3 +137,7 @@ apex/
 train/
 data/
 sort_data/
+Database/
+
+# file query
+faiss_cosine.bin

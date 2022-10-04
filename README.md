@@ -13,3 +13,8 @@
 
 ## Download requirement files
 - [Cosine_bin_file](https://drive.google.com/file/d/1-C5PHwQGohdM6CLF4C3dWHPWEV32ieJl/view?usp=sharing).
+
+## Hướng dẫn cách sử dụng web
+```
+python3 web.py
+```
