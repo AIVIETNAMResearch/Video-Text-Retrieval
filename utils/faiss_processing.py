@@ -8,7 +8,9 @@ from PIL import Image
 import math
 
 class MyFaiss():
-  def __init__(self, root_database: str):
+  def __init__(self, root_database: str, bin_file: str, json_path: str):
+    self.bin_file = bin_file
+    self.json_path = json_path
     self.root_database = root_database
   
   def write_json_file(self, json_path: str):
@@ -69,9 +71,9 @@ class MyFaiss():
       plt.axis("off")
     plt.show()
 
-  def __call__(self, bin_file: str, json_path: str, id_query, k=9):
-    index = self.load_bin_file(bin_file)
-    id2img_fps = self.load_json_file(json_path)
+  def __call__(self, id_query, k=9):
+    index = self.load_bin_file(self.bin_file)
+    id2img_fps = self.load_json_file(self.json_path)
     
     query_feats = index.reconstruct(id_query).reshape(1,-1)
     scores, idx_image = index.search(query_feats, k=k)
@@ -84,16 +86,17 @@ class MyFaiss():
     return scores, idx_image, image_paths
 
 def main():
-    cosine_faiss = MyFaiss('./Database')
-
     # cosine_faiss.write_json_file(json_path='./')
     # cosine_faiss.write_bin_file(bin_path='./', method='cosine')
 
-    bin_file='./faiss_cosine.bin'
-    json_path = './keyframes_id.json'
-    id_query = 0
+    bin_file='/content/drive/MyDrive/Video_Retrieval/faiss_cosine.bin'
+    json_path = '/content/keyframes_id.json'
 
-    scores, _, image_paths = cosine_faiss(bin_file, json_path, id_query, k=9)
+    cosine_faiss = MyFaiss('/content/drive/MyDrive/AIC_HCM/paddle/dataset', bin_file, json_path)
+
+    #### Testing ####
+    id_query=100
+    scores, _, image_paths = cosine_faiss(id_query, k=9)
     cosine_faiss.show_images(image_paths)
 
 if __name__ == "__main__":
