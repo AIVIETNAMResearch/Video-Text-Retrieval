@@ -13,4 +13,3 @@
 
 ## Download requirement files
 - [Cosine_bin_file](https://drive.google.com/file/d/1-C5PHwQGohdM6CLF4C3dWHPWEV32ieJl/view?usp=sharing).
-- [L2_bin_file](https://drive.google.com/file/d/1-CGvgrlE7LZN6rONKp7s5wEb4kp7scJ_/view?usp=sharing).
