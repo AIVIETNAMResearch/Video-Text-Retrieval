@@ -1,0 +1,166 @@
+<html>
+<header>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>comic-ocr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center; /* !!! */
+            font-size: 20px;
+        }
+        .centered {
+            margin: 0 auto;
+            text-align: left;
+            width: 1600px;
+        }
+        .input_button{
+            width: 200px;
+            height: 40px;
+            margin-top: 20px;
+            border: 2px solid red;
+            background-color: red;
+            color: white;
+            font-size: 15px;
+        }
+        .hide{
+            display: none;
+        }
+        .page_num{
+            display: inline-block;
+            margin-right: 5px;
+        }
+        #div_page{
+            text-align: center;
+            margin-top: 10px;
+        }
+        a:link {
+          text-decoration: none;
+        }
+        a:hover {
+          color: green;
+        }
+        img{
+            margin: 5px;
+        }
+        input{
+            width: 500px;
+        }
+    </style>
+
+</header>
+<body onload="on_load();">
+    <div class="centered">
+        <h1> AIO - HCM AI CHALLENGE 2022 </h1>
+        <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px;"></div>
+        <div>
+            imgpath: <input id="imgpath"></input>
+            <!-- labelpath: <input id="labelpath"></input> -->
+            <button onclick="go();">Go</button>
+            <!-- <a href="http://service.aiclub.cs.uit.edu.vn/comic_ocr/" class="button">Home</a> -->
+            <button onclick="gohome()">Home</button>
+                
+        </div>
+        <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px; margin-top: 5px;"></div>
+        <div id="div_img">
+            
+        </div>
+        <div style="height: 5px; width: 100%; background-color: black;"></div>
+        <div id="div_page">
+            
+        </div>
+        <div id="div_total_page">Total: 1200 page</div>
+        <div style="margin-bottom: 50px;"></div>
+    </div>
+    <script>
+        var data = '{{ data | tojson}}';
+        data = JSON.parse(data);
+        function add_paging(){
+            console.log(data['num_page']);
+            var url = new URL(window.location.href);
+            var cur_index = parseInt(url.searchParams.get("index"));
+            var imgpath = url.searchParams.get("imgpath");
+            // var labelpath = url.searchParams.get("labelpath");
+            if (cur_index == 'undefined'){
+                cur_index = 0;
+            }
+            var i = cur_index-4;
+            if (i > 0){
+                var iDiv = document.createElement('div');
+                iDiv.className = 'page_num';
+                iDiv.innerHTML = "...";
+                document.getElementById("div_page").appendChild(iDiv);
+            }
+            for (i; ((i < data['num_page']) && (i < cur_index+4)); i++){
+                if (i < 0){
+                    i = 0;
+                }
+                var iDiv = document.createElement('div');
+                iDiv.className = 'page_num';
+                var iA = document.createElement('a');
+                // iA.href = "?index="+i.toString()+"&imgpath="+imgpath+"&labelpath="+labelpath;
+                iA.href = "?index="+i.toString()+"&imgpath="+imgpath;
+                iA.innerHTML = i.toString();
+                if (i == cur_index){
+                    iA.style.color="green";
+                }
+                iDiv.appendChild(iA);
+                document.getElementById("div_page").appendChild(iDiv);
+            }
+            if (i < data['num_page']){
+                var iDiv = document.createElement('div');
+                iDiv.className = 'page_num';
+                iDiv.innerHTML = "...";
+                document.getElementById("div_page").appendChild(iDiv);
+            }
+            document.getElementById("div_total_page").innerHTML = "Total: "+data['num_page'].toString()+" page";
+        }
+        function add_img(){
+            console.log(data['pagefile'].length);
+            for (i = 0; i < data['pagefile'].length; i++){
+                console.log(data['pagefile']);
+                imgpath = data['pagefile'][i]['imgpath']
+                // labelpath = data['pagefile'][i]['labelpath']
+                fname = data['pagefile'][i]['fname']
+                // fname_ext = data['pagefile'][i]['fname_ext']
+                var iImg = document.createElement('img');
+                // iImg.setAttribute("src", "get_img?fpath="+imgpath+fname+"&boxes="+data['pagefile'][i]['boxes']);
+                iImg.setAttribute("src", "get_img?fpath="+imgpath+fname);
+                iImg.setAttribute("border", 0);
+                iImg.setAttribute("alt", fname);
+                iImg.setAttribute("width", 300);
+                iImg.setAttribute("height", 180);
+                iImg.setAttribute("onclick", "go_single('"+imgpath+"','"+fname+"');");
+
+                document.getElementById("div_img").appendChild(iImg);
+            }
+        }
+        function go_single(imgpath, fname){
+            index_similarity = 0
+            new_dir = "sort_data"
+
+            window.open("/thumbnailimg?index="+index_similarity+"&imgpath="+new_dir);
+        }
+        function on_load(){
+            var url = new URL(window.location.href);
+            var imgpath = url.searchParams.get("imgpath");
+            // var labelpath = url.searchParams.get("labelpath");
+            document.getElementById('imgpath').value = imgpath;
+            // document.getElementById('labelpath').value = labelpath;
+            add_paging();
+            add_img();
+        }
+        function go(){
+            imgpath = document.getElementById('imgpath').value;
+            // labelpath = document.getElementById('labelpath').value;
+            window.location.href = "?index=0"+"&imgpath="+imgpath;
+        }
+
+        function gohome(){
+            window.location.href = "http://service.aiclub.cs.uit.edu.vn/comic_ocr/"
+        }
+    </script>
+</body>
+</html>
