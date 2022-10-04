@@ -9,9 +9,9 @@ import math
 
 class MyFaiss():
   def __init__(self, root_database: str, bin_file: str, json_path: str):
-    self.bin_file = bin_file
-    self.json_path = json_path
     self.root_database = root_database
+    self.index = self.load_bin_file(bin_file)
+    self.id2img_fps = self.load_json_file(json_path)
   
   def write_json_file(self, json_path: str):
     des_path = os.path.join(json_path, "keyframes_id.json")
@@ -71,14 +71,11 @@ class MyFaiss():
       plt.axis("off")
     plt.show()
 
-  def __call__(self, id_query, k=9):
-    index = self.load_bin_file(self.bin_file)
-    id2img_fps = self.load_json_file(self.json_path)
-    
-    query_feats = index.reconstruct(id_query).reshape(1,-1)
-    scores, idx_image = index.search(query_feats, k=k)
+  def __call__(self, id_query, k=9):    
+    query_feats = self.index.reconstruct(id_query).reshape(1,-1)
+    scores, idx_image = self.index.search(query_feats, k=k)
     idx_image = idx_image.flatten()
-    image_paths = list(map(id2img_fps.get, list(idx_image)))
+    image_paths = list(map(self.id2img_fps.get, list(idx_image)))
     
     print(f"scores: {scores}")
     print(f"idx: {idx_image}")
@@ -89,15 +86,15 @@ def main():
     # cosine_faiss.write_json_file(json_path='./')
     # cosine_faiss.write_bin_file(bin_path='./', method='cosine')
 
-    bin_file='/content/drive/MyDrive/Video_Retrieval/faiss_cosine.bin'
-    json_path = '/content/keyframes_id.json'
+  bin_file='/content/drive/MyDrive/Video_Retrieval/faiss_cosine.bin'
+  json_path = '/content/keyframes_id.json'
 
-    cosine_faiss = MyFaiss('/content/drive/MyDrive/AIC_HCM/paddle/dataset', bin_file, json_path)
+  cosine_faiss = MyFaiss('/content/drive/MyDrive/AIC_HCM/paddle/dataset', bin_file, json_path)
 
-    #### Testing ####
-    id_query=100
-    scores, _, image_paths = cosine_faiss(id_query, k=9)
-    cosine_faiss.show_images(image_paths)
+  #### Testing ####
+  id_query=100
+  scores, _, image_paths = cosine_faiss(id_query, k=9)
+  cosine_faiss.show_images(image_paths)
 
 if __name__ == "__main__":
     main()
