@@ -1,11 +1,17 @@
+# pip install faiss
+# pip install ftfy regex tqdm
+# pip install git+https://github.com/openai/CLIP.git
+
 import numpy as np
 import faiss
 import glob
 import json
 import matplotlib.pyplot as plt
 import os
-from PIL import Image
 import math
+from utils.nlp_processing import Translation
+import clip
+import torch
 
 class File4Faiss():
   def __init__(self, root_database: str):
@@ -54,7 +60,10 @@ class MyFaiss():
     self.root_database = root_database
     self.index = self.load_bin_file(bin_file)
     self.id2img_fps = self.load_json_file(json_path)
-  
+    self.translater = Translation()
+    self.__device = "cuda" if torch.cuda.is_available() else "cpu"
+    self.model, preprocess = clip.load("ViT-B/16", device=self.__device)
+    
   def load_json_file(self, json_path: str):
       with open(json_path, 'r') as f:
         js = json.loads(f.read())
@@ -86,6 +95,20 @@ class MyFaiss():
     # print(f"paths: {image_paths}")
     return scores, idx_image, image_paths
 
+  def predict(self, text, k=9):
+    text = self.translater(text)
+    print(f'Translation: {text}')
+    text = clip.tokenize([text]).to(self.__device)  
+    text_features = self.model.encode_text(text).cpu().detach().numpy().astype(np.float32)
+
+    scores, idx_image = self.index.search(text_features, k=k)
+    idx_image = idx_image.flatten()
+    image_paths = list(map(self.id2img_fps.get, list(idx_image)))
+    
+    # print(f"scores: {scores}")
+    # print(f"idx: {idx_image}")
+    # print(f"paths: {image_paths}")
+    return scores, idx_image, image_paths
 
 def main():
   # create_file = File4Faiss('./Database')
@@ -97,8 +120,8 @@ def main():
   cosine_faiss = MyFaiss('./Database', bin_file, json_path)
 
   #### Testing ####
-  id_query=100
-  scores, _, image_paths = cosine_faiss(id_query, k=9)
+  text = 'trận bóng đá Việt Nam'
+  scores, _, image_paths = cosine_faiss.predict(text, k=9)
   cosine_faiss.show_images(image_paths)
 
 if __name__ == "__main__":
