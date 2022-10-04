@@ -43,7 +43,7 @@ class MyFaiss():
     else:
       assert f"{method} not supported"
 
-    for feat_path in feature_paths:
+    for feat_path in tqdm_notebook(feature_paths):
       video_paths = sorted(glob.glob(f"{feat_path}/*"))
       for video in video_paths:
         feats = np.load(video)
@@ -57,42 +57,44 @@ class MyFaiss():
   def load_bin_file(self, bin_file: str):
     return faiss.read_index(bin_file)
 
-  def show_images(self, query_image, idx_image, json_path: str):
-    plt.imshow(query_image)
-    id2img_fps = self.load_json_file(json_path)
+  def show_images(self, image_paths):
     fig = plt.figure(figsize=(15, 10))
-    columns = int(math.sqrt(len(idx_image[0])))
-    rows = int(np.ceil(len(idx_image[0])/columns))
+    columns = int(math.sqrt(len(image_paths)))
+    rows = int(np.ceil(len(image_paths)/columns))
     for i in range(1, columns*rows +1):
-      img = plt.imread(id2img_fps[idx_image[0][i - 1]])
+      img = plt.imread(image_paths[i - 1])
       ax = fig.add_subplot(rows, columns, i)
-      ax.set_title('/'.join(id2img_fps[idx_image[0][i - 1]].split('/')[-3:]))
+      ax.set_title('/'.join(image_paths[i - 1].split('/')[-3:]))
       plt.imshow(img)
       plt.axis("off")
     plt.show()
 
-  def __call__(self, bin_file: str, query_feats, k=9):
+  def __call__(self, bin_file: str, json_path: str, id_query, k=9):
     index = self.load_bin_file(bin_file)
+    id2img_fps = self.load_json_file(json_path)
+    
+    query_feats = index.reconstruct(id_query).reshape(1,-1)
     scores, idx_image = index.search(query_feats, k=k)
-
+    idx_image = idx_image.flatten()
+    image_paths = list(map(id2img_fps.get, list(idx_image)))
+    
     print(f"scores: {scores}")
     print(f"idx: {idx_image}")
-    return scores, idx_image
+    print(f"paths: {image_paths}")
+    return scores, idx_image, image_paths
 
 def main():
     cosine_faiss = MyFaiss('./Database')
 
-    cosine_faiss.write_json_file(json_path='./')
-    cosine_faiss.write_bin_file(bin_path='./', method='cosine')
+    # cosine_faiss.write_json_file(json_path='./')
+    # cosine_faiss.write_bin_file(bin_path='./', method='cosine')
 
     bin_file='./faiss_cosine.bin'
     json_path = './keyframes_id.json'
-    query_path = './Database/KeyFramesC00_V00/C00_V0000/000000.jpg'
-    query_image = Image.open(query_path)
-    query_feats = np.load('./Database/CLIPFeatures_C00_V00/C00_V0000.npy')[0].astype(np.float32).reshape(1,-1)
+    id_query = 0
 
-    scores, idx = cosine_faiss(bin_file, query_feats, k=1)
-    cosine_faiss.show_images(query_image, idx, json_path)
+    scores, _, image_paths = cosine_faiss(bin_file, json_path, id_query, k=9)
+    cosine_faiss.show_images(image_paths)
 
 if __name__ == "__main__":
     main()
