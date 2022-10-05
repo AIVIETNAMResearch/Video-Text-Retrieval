@@ -12,14 +12,15 @@ import math
 from utils.nlp_processing import Translation
 import clip
 import torch
+import pandas as pd
 
 class File4Faiss():
   def __init__(self, root_database: str):
     self.root_database = root_database
 
   def write_json_file(self, json_path: str):
-    des_path = os.path.join(json_path, "keyframes_id.json")
     files = []
+    des_path = os.path.join(json_path, "keyframes_id.json")
     keyframe_paths = sorted(glob.glob(f'{self.root_database}/KeyFramesC0*_V00'))
 
     for kf in keyframe_paths:
@@ -62,10 +63,13 @@ class File4Faiss():
 class MyFaiss():
   def __init__(self, root_database: str, bin_file: str, json_path: str):
     self.root_database = root_database
+
     self.index = self.load_bin_file(bin_file)
     self.id2img_fps = self.load_json_file(json_path)
+
     self.translater = Translation()
-    self.__device = "cuda" if torch.cuda.is_available() else "cpu"
+    
+    self.__device = "cuda" if torch.cuda.is_available() else "cpu"    
     self.model, preprocess = clip.load("ViT-B/16", device=self.__device)
     
   def load_json_file(self, json_path: str):
@@ -117,11 +121,23 @@ class MyFaiss():
 
     image_paths = list(map(self.id2img_fps.get, list(idx_image)))
     
+    self.write_csv(image_paths, k)
+
     # print(f"scores: {scores}")
     # print(f"idx: {idx_image}")
     # print(f"paths: {image_paths}")
 
     return scores, idx_image, image_paths
+
+  def write_csv(self, image_paths, k):
+    video_names = [i.split('/')[-2] + '.mp4' for i in image_paths]
+    frame_ids = [i.split('/')[-1].replace('.jpg', '') for i in image_paths]
+
+    dct = {'video_names': video_names, 'frame_ids': frame_ids}
+    df = pd.DataFrame(dct)
+
+    df.to_csv(f'./submit_{k}.csv', header=False, index=False)
+
 
 def main():
   # create_file = File4Faiss('./Database')
@@ -134,7 +150,12 @@ def main():
   cosine_faiss = MyFaiss('./Database', bin_file, json_path)
 
   #### Testing ####
-  text = 'trận bóng đá Việt Nam'
+  text = 'Người nghệ nhân đang tô màu cho chiếc mặt nạ một cách tỉ mỉ. \
+        Xung quanh ông là rất nhiều những chiếc mặt nạ. \
+        Người nghệ nhân đi đôi dép tổ ong rất giản dị. \
+        Sau đó là hình ảnh quay cận những chiếc mặt nạ. \
+        Loại mặt nạ này được gọi là mặt nạ giấy bồi Trung thu.'
+
   scores, _, image_paths = cosine_faiss.text_search(text, k=9)
   cosine_faiss.show_images(image_paths)
 
