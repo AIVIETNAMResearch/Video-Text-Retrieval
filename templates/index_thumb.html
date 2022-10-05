@@ -2,7 +2,7 @@
 <header>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>comic-ocr</title>
+    <title>AIO-IR system</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -53,14 +53,13 @@
 </header>
 <body onload="on_load();">
     <div class="centered">
-        <h1> AIO - HCM AI CHALLENGE 2022 </h1>
+        <h1 id="imgpath"> AIO - HCM AI CHALLENGE 2022 </h1>
         <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px;"></div>
         <div>
-            imgpath: <input id="imgpath"></input>
-            <!-- labelpath: <input id="labelpath"></input> -->
-            <button onclick="go();">Go</button>
-            <!-- <a href="http://service.aiclub.cs.uit.edu.vn/comic_ocr/" class="button">Home</a> -->
-            <button onclick="gohome()">Home</button>
+            Text_query: <input id="text_query"></input>
+            <!-- label_img_path: <input id="imgpath"></input> -->
+            <button onclick="search();">Search</button>
+            <!-- <button onclick="gohome()">Home</button> -->
                 
         </div>
         <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px; margin-top: 5px;"></div>
@@ -83,6 +82,7 @@
             var url = new URL(window.location.href);
             var cur_index = parseInt(url.searchParams.get("index"));
             var imgpath = url.searchParams.get("imgpath");
+            console.log(imgpath);
             // var labelpath = url.searchParams.get("labelpath");
             if (cur_index == 'undefined'){
                 cur_index = 0;
@@ -135,14 +135,14 @@
                 iImg.setAttribute("alt", imgpath);
                 iImg.setAttribute("width", 300);
                 iImg.setAttribute("height", 180);
-                iImg.setAttribute("onclick", "go_knn('"+id+"');");
+                iImg.setAttribute("onclick", "go_img_search('"+id+"');");
 
                 document.getElementById("div_img").appendChild(iImg);
             }
         }
 
-        function go_knn(id){
-            window.open("/knn?imgid="+id);
+        function go_img_search(id){
+            window.open("/imgsearch?imgid="+id);
         }
 
         function on_load(){
@@ -154,11 +154,10 @@
             add_paging();
             add_img();
         }
-        function go(){
-            imgpath = document.getElementById('imgpath').value;
-            // labelpath = document.getElementById('labelpath').value;
-            // window.location.href = "?index=0"+"&imgpath="+imgpath;
-            window.location.href = "?index=0";
+        function search(){
+            text_query = document.getElementById('text_query').value;
+
+            window.location.href = "/textsearch?textquery="+text_query;
         }
 
         function gohome(){

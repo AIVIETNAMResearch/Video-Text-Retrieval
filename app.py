@@ -64,15 +64,13 @@ def thumbnailimg():
     
     return render_template('index_thumb.html', data=data)
 
-@app.route('/knn')
-def knn_search():
-    print("knn search")
+@app.route('/imgsearch')
+def image_search():
+    print("image search")
     pagefile = []
     id_query = int(request.args.get('imgid'))
-    _, list_idx, list_image_paths = CosineFaiss(id_query, k=200)
+    _, list_idx, list_image_paths = CosineFaiss.image_search(id_query, k=200)
 
-    print(list_image_paths[0])
-    print(list_idx[0])
     imgperindex = 100 
 
     for imgpath, id in zip(list_image_paths, list_idx):
@@ -82,6 +80,21 @@ def knn_search():
     
     return render_template('index_thumb.html', data=data)
 
+@app.route('/textsearch')
+def text_search():
+    print("text search")
+    pagefile = []
+    text_query = request.args.get('textquery')
+    _, list_idx, list_image_paths = CosineFaiss.text_search(text_query, k=200)
+
+    imgperindex = 100 
+
+    for imgpath, id in zip(list_image_paths, list_idx):
+        pagefile.append({'imgpath': imgpath, 'id': int(id)})
+
+    data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
+    
+    return render_template('index_thumb.html', data=data)
 
 
 @app.route('/get_img')
