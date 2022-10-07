@@ -158,7 +158,7 @@ class MyFaiss():
     # lst_shot = [i['shot'] for i in infos_query]
     
     ###### WRITE SUBMIT CSV FILE ######
-    self.write_csv(infos_query, k, des_path_submit)
+    # self.write_csv(infos_query, k, des_path_submit)
 
     # print(f"scores: {scores}")
     # print(f"idx: {idx_image}")
