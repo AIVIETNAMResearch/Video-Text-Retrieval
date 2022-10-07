@@ -21,7 +21,7 @@ class File4Faiss():
   def __init__(self, root_database: str):
     self.root_database = root_database
 
-  def write_json_file(self, json_path: str, shot_frames_path: str):
+  def write_json_file(self, json_path: str, shot_frames_path: str, option='first-end'):
     self.infos = []
     des_path = os.path.join(json_path, "keyframes_id.json")
     keyframe_paths = sorted(glob.glob(f'{self.root_database}/KeyFramesC0*_V00'))
@@ -54,8 +54,12 @@ class File4Faiss():
 
           info = {"image_path": im_path,
                   "shot": lst_shot}
-                  
-          self.infos.append(info)   
+
+          if option == 'full':        
+            self.infos.append(info)   
+          else:
+            if id == first or id == end:
+              self.infos.append(info)
 
     id2img_fps = dict(enumerate(self.infos))
     
@@ -139,7 +143,6 @@ class MyFaiss():
   def text_search(self, text, k, des_path_submit):
     if detect(text) == 'vi':
       text = self.translater(text)
-      print('okkkk')
 
     ###### TEXT FEATURES EXACTING ######
     text = clip.tokenize([text]).to(self.__device)  
