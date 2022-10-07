@@ -1,6 +1,7 @@
 # pip install faiss
 # pip install ftfy regex tqdm
 # pip install git+https://github.com/openai/CLIP.git
+# pip install langdetect
 
 import numpy as np
 import faiss
@@ -13,13 +14,15 @@ from utils.nlp_processing import Translation
 import clip
 import torch
 import pandas as pd
+import re
+from langdetect import detect
 
 class File4Faiss():
   def __init__(self, root_database: str):
     self.root_database = root_database
 
-  def write_json_file(self, json_path: str):
-    files = []
+  def write_json_file(self, json_path: str, shot_frames_path: str):
+    self.infos = []
     des_path = os.path.join(json_path, "keyframes_id.json")
     keyframe_paths = sorted(glob.glob(f'{self.root_database}/KeyFramesC0*_V00'))
 
@@ -27,11 +30,34 @@ class File4Faiss():
       video_paths = sorted(glob.glob(f"{kf}/*"))
       for video_path in video_paths:
         image_paths = sorted(glob.glob(f'{video_path}/*.jpg'))
+
+        ###### Get all id keyframes from video_path ######
+        id_keyframes = np.array([int(id.split('/')[-1].replace('.jpg', '')) for id in image_paths])
+
+        ###### Get scenes from video_path ######
+        video_info = video_path.split('/')[-1]
+        with open(f'{shot_frames_path}/{video_info}.txt', 'r') as f:
+          lst_range_shotes = f.readlines()
+        lst_range_shotes = np.array([re.sub('\[|\]', '', line).strip().split(' ') for line in lst_range_shotes]).astype(np.uint32)
+
         for im_path in image_paths:
           # im_path = '/'.join(im_path.split('/')[-3:])
-          files.append(im_path)   
+          id = int(im_path.split('/')[-1].replace('.jpg', ''))
 
-    id2img_fps = dict(enumerate(files))
+          for range_shot in lst_range_shotes:
+            first, end = range_shot
+            if first <= id <= end:
+              break
+          
+          lst_shot = id_keyframes[np.where((id_keyframes>=first) & (id_keyframes<=end))]
+          lst_shot = [f"{i:0>6d}" for i in lst_shot]
+
+          info = {"image_path": im_path,
+                  "shot": lst_shot}
+                  
+          self.infos.append(info)   
+
+    id2img_fps = dict(enumerate(self.infos))
     
     with open(des_path, 'w') as f:
       f.write(json.dumps(id2img_fps))
@@ -110,18 +136,26 @@ class MyFaiss():
     
     return scores, idx_image, image_paths
 
-  def text_search(self, text, k=9):
-    text = self.translater(text)
+  def text_search(self, text, k, des_path_submit):
+    if detect(text) == 'vi':
+      text = self.translater(text)
+      print('okkkk')
 
+    ###### TEXT FEATURES EXACTING ######
     text = clip.tokenize([text]).to(self.__device)  
     text_features = self.model.encode_text(text).cpu().detach().numpy().astype(np.float32)
 
+    ###### SEARCHING #####
     scores, idx_image = self.index.search(text_features, k=k)
     idx_image = idx_image.flatten()
 
-    image_paths = list(map(self.id2img_fps.get, list(idx_image)))
+    ###### GET INFOS KEYFRAMES_ID ######
+    infos_query = list(map(self.id2img_fps.get, list(idx_image)))
+    image_paths = [i['image_path'] for i in infos_query]
+    # lst_shot = [i['shot'] for i in infos_query]
     
-    self.write_csv(image_paths, k)
+    ###### WRITE SUBMIT CSV FILE ######
+    self.write_csv(infos_query, k, des_path_submit)
 
     # print(f"scores: {scores}")
     # print(f"idx: {idx_image}")
@@ -129,15 +163,27 @@ class MyFaiss():
 
     return scores, idx_image, image_paths
 
-  def write_csv(self, image_paths, k):
-    video_names = [i.split('/')[-2] + '.mp4' for i in image_paths]
-    frame_ids = [i.split('/')[-1].replace('.jpg', '') for i in image_paths]
+  def write_csv(self, infos_query, k, des_path):
+    des_path = os.path.join(des_path,f'submit_{k}.csv')
+    check_files = []
+
+    for info in infos_query:
+      video_name = info['image_path'].split('/')[-2]
+      lst_frames = info['shot']
+
+      for id_frame in lst_frames:
+        check_files.append(os.path.join(video_name, id_frame))
+    
+    check_files = set(check_files)
+    video_names = [i.split('/')[0] + '.mp4' for i in check_files]
+    frame_ids = [i.split('/')[-1] for i in check_files]
 
     dct = {'video_names': video_names, 'frame_ids': frame_ids}
     df = pd.DataFrame(dct)
 
-    df.to_csv(f'./submit_{k}.csv', header=False, index=False)
+    df.to_csv(des_path, header=False, index=False)
 
+    print(f"Save submit file to {des_path}")
 
 def main():
   # create_file = File4Faiss('./Database')
@@ -145,7 +191,7 @@ def main():
   # create_file.write_bin_file(bin_path='./', method='cosine')
 
   bin_file='./faiss_cosine.bin'
-  json_path = './keyframes_id.json'
+  json_path = './dict/keyframes_id.json'
 
   cosine_faiss = MyFaiss('./Database', bin_file, json_path)
 
@@ -156,7 +202,7 @@ def main():
         Sau đó là hình ảnh quay cận những chiếc mặt nạ. \
         Loại mặt nạ này được gọi là mặt nạ giấy bồi Trung thu.'
 
-  scores, _, image_paths = cosine_faiss.text_search(text, k=9)
+  scores, _, image_paths = cosine_faiss.text_search(text, k=9, des_path_submit='./')
   cosine_faiss.show_images(image_paths)
 
 if __name__ == "__main__":
