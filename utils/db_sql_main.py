@@ -74,7 +74,7 @@ def create_tables():
         CREATE TABLE video (
             id BIGINT GENERATED ALWAYS AS IDENTITY UNIQUE,
             video_id CHAR(15) NOT NULL,
-            frame_id CHAR(15) NOT NULL,
+            frame_id INT NOT NULL,
             PRIMARY KEY(video_id, frame_id)
         )
         """,
