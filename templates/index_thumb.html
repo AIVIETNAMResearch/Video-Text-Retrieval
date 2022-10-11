@@ -48,6 +48,67 @@
         input{
             width: 500px;
         }
+
+        /* add image button */
+        #div_img {
+            display: flex;
+            flex-direction: row;    
+            flex-wrap: wrap;
+            /* height: 120px;
+            width: 516px; */
+        }
+
+        .container_img_btn {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .container_img_btn img {
+            width: 100%;
+            height: auto;
+        }
+
+        .container_img_btn .btn {
+            position: absolute;
+            top: 50%;
+            left: 90%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            background-color: #555;
+            color: rgb(91, 207, 14);
+            font-size: 16px;
+            padding: 5px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .container_img_btn .btn_knn {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            background-color: #555;
+            color: rgb(91, 207, 14);
+            font-size: 16px;
+            padding: 5px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .container_img_btn .btn:hover {
+            background-color: black;
+        }
+
+        .container_img_btn .btn_knn:hover {
+            background-color: black;
+        }
+
     </style>
 
 </header>
@@ -62,10 +123,12 @@
             <!-- <button onclick="gohome()">Home</button> -->
                 
         </div>
+
         <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px; margin-top: 5px;"></div>
         <div id="div_img">
             
         </div>
+
         <div style="height: 5px; width: 100%; background-color: black;"></div>
         <div id="div_page">
             
@@ -74,8 +137,11 @@
         <div style="margin-bottom: 50px;"></div>
     </div>
     <script>
-        var data = '{{ data | tojson}}';
+        var data = '{{ data|tojson }}';
+        data = data.replace(/\s/g, '');
+        data = data.replace(/\\/g, '/');
         data = JSON.parse(data);
+       
         console.log(data);
         function add_paging(){
             console.log(data['num_page']);
@@ -135,9 +201,29 @@
                 iImg.setAttribute("alt", imgpath);
                 iImg.setAttribute("width", 300);
                 iImg.setAttribute("height", 180);
-                iImg.setAttribute("onclick", "go_img_search('"+id+"');");
+                // iImg.setAttribute("onclick", "go_img_search('"+id+"');");
 
-                document.getElementById("div_img").appendChild(iImg);
+                var box = document.createElement('button');
+                box.textContent = "sellect";
+                box.setAttribute('class', 'btn');
+                box.setAttribute('onclick',  "go_img_search('"+id+"');");
+
+                var box_knn = document.createElement('button');
+                box_knn.textContent = "knn";
+                box_knn.setAttribute('class', 'btn_knn');
+                box_knn.setAttribute('onclick',  "go_img_search('"+id+"');");
+
+                var div_image_button = document.createElement('div');
+                div_image_button.setAttribute('class', 'container_img_btn');
+
+                
+                div_image_button.appendChild(box);
+                div_image_button.appendChild(box_knn);
+                div_image_button.appendChild(iImg);
+                // iImg.appendChild(box);
+                document.getElementById("div_img").appendChild(div_image_button);
+
+                // document.getElementById("div_img").appendChild(iImg);
             }
         }
 
@@ -154,15 +240,15 @@
             add_paging();
             add_img();
         }
+
+
         function search(){
             text_query = document.getElementById('text_query').value;
 
             window.location.href = "/textsearch?textquery="+text_query;
         }
 
-        function gohome(){
-            window.location.href = "http://service.aiclub.cs.uit.edu.vn/comic_ocr/"
-        }
+        
     </script>
 </body>
 </html>

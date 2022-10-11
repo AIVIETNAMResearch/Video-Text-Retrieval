@@ -2,13 +2,13 @@
 from flask import Flask, render_template, jsonify, Response, request
 import cv2
 import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 import numpy as np
 import pandas as pd
 import json
 from utils.faiss_processing import MyFaiss
 
 # http://0.0.0.0:5001/thumbnailimg?index=0
-
 
 # app = Flask(__name__, template_folder='templates', static_folder='static')
 app = Flask(__name__, template_folder='templates')
@@ -19,7 +19,7 @@ json_path = 'dict/keyframes_id.json'
 
 CosineFaiss = MyFaiss('Database', bin_file, json_path)
 DictImagePath = CosineFaiss.id2img_fps
-LenDictPath = len(DictImagePath)
+LenDictPath = len(CosineFaiss.id2img_fps)
 # CosineFaiss.id2img_fps
 
 @app.route('/thumbnailimg')
@@ -44,7 +44,7 @@ def thumbnailimg():
 
         tmp_index = first_index
         while tmp_index < last_index:
-            page_filelist.append(DictImagePath[tmp_index])
+            page_filelist.append(DictImagePath[tmp_index]["image_path"])
             list_idx.append(tmp_index)
             tmp_index += 1    
     else:
@@ -53,7 +53,7 @@ def thumbnailimg():
 
         tmp_index = first_index
         while tmp_index < last_index:
-            page_filelist.append(DictImagePath[tmp_index])
+            page_filelist.append(DictImagePath[tmp_index]["image_path"])
             list_idx.append(tmp_index)
             tmp_index += 1    
 
@@ -116,7 +116,7 @@ def get_img():
 
     ret, jpeg = cv2.imencode('.jpg', img)
     return  Response((b'--frame\r\n'
-                     b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tostring() + b'\r\n\r\n'),
+                     b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n'),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

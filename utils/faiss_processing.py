@@ -140,7 +140,7 @@ class MyFaiss():
     
     return scores, idx_image, image_paths
 
-  def text_search(self, text, k, des_path_submit):
+  def text_search(self, text, k): #des_path_submit
     if detect(text) == 'vi':
       text = self.translater(text)
 
