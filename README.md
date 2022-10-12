@@ -12,8 +12,8 @@
 ---
 
 ## Download requirement files
-- [Cosine_bin_file](https://drive.google.com/file/d/1-9XtDw2_AKsIFQ6vsEeymszjMU9n1ZBQ/view?usp=sharing).
-- [Keyframes_id](https://drive.google.com/file/d/1oGN1YsVFKGOkX3mI3HCnig5cUppN_B_o/view?usp=sharing).
+- [Cosine_bin_file](https://drive.google.com/file/d/14rJ5eqEqTlDW2VxNAMr84k2TU26FB84q/view?usp=sharing).
+- [Keyframes_id](https://drive.google.com/file/d/1TI6bOAV7S7xpk82uLYiHJK95HfltPJZe/view?usp=sharing).
 
 ## Hướng dẫn cách sử dụng web
 ```
