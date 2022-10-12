@@ -132,7 +132,14 @@ class MyFaiss():
     scores, idx_image = self.index.search(query_feats, k=k)
     idx_image = idx_image.flatten()
 
-    image_paths = list(map(self.id2img_fps.get, list(idx_image)))
+    infos_query = list(map(self.id2img_fps.get, list(idx_image)))
+    
+    # image_paths = []
+    # for info in infos_query:
+    #   print("info: ", info)
+    #   image_paths.append(info)
+
+    image_paths = [info['image_path'] for info in infos_query if info]
     
     # print(f"scores: {scores}")
     # print(f"idx: {idx_image}")
@@ -154,7 +161,7 @@ class MyFaiss():
 
     ###### GET INFOS KEYFRAMES_ID ######
     infos_query = list(map(self.id2img_fps.get, list(idx_image)))
-    image_paths = [i['image_path'] for i in infos_query]
+    image_paths = [info['image_path'] for info in infos_query if info]
     # lst_shot = [i['shot'] for i in infos_query]
     
     ###### WRITE SUBMIT CSV FILE ######

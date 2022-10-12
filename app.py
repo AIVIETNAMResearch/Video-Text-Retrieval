@@ -71,6 +71,7 @@ def image_search():
     id_query = int(request.args.get('imgid'))
     _, list_idx, list_image_paths = CosineFaiss.image_search(id_query, k=200)
 
+    # print("list_image_paths[0]: ", list_image_paths)
     imgperindex = 100 
 
     for imgpath, id in zip(list_image_paths, list_idx):
@@ -95,6 +96,22 @@ def text_search():
     data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
     
     return render_template('index_thumb.html', data=data)
+
+# @app.route('/showsegment')
+# def show_segment():
+#     print("showsegment")
+#     pagefile = []
+#     id_query = int(request.args.get('imgid'))
+
+#     list_shot = DictImagePath[id_query]['shot']
+    
+#     imgperindex = 100 
+#     for shot_id in list_shot:
+#         pagefile.append({'imgpath': imgpath, 'id': int(id)})
+
+#     data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
+    
+#     return render_template('index_thumb.html', data=data)
 
 
 @app.route('/get_img')

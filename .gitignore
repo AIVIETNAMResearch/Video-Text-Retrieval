@@ -141,3 +141,4 @@ Database/
 
 # file query
 faiss_cosine.bin
+keyframes_id.json

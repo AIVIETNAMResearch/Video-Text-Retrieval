@@ -201,7 +201,7 @@
                 iImg.setAttribute("alt", imgpath);
                 iImg.setAttribute("width", 300);
                 iImg.setAttribute("height", 180);
-                // iImg.setAttribute("onclick", "go_img_search('"+id+"');");
+                // iImg.setAttribute("onclick", "show_list_segment('"+id+"');");
 
                 var box = document.createElement('button');
                 box.textContent = "sellect";
@@ -239,6 +239,10 @@
             // document.getElementById('labelpath').value = labelpath;
             add_paging();
             add_img();
+        }
+
+        function show_list_segment(id){
+            window.open("/showsegment?imgid="+id);
         }
 
 
