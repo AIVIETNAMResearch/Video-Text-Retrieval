@@ -19,6 +19,24 @@ pip install -r requirements.txt
 - [Cosine_bin_file](https://drive.google.com/file/d/14rJ5eqEqTlDW2VxNAMr84k2TU26FB84q/view?usp=sharing).
 - [Keyframes_id](https://drive.google.com/file/d/1TI6bOAV7S7xpk82uLYiHJK95HfltPJZe/view?usp=sharing).
 
+## Format Keyframes_id.json
+```
+{"0": {
+    "image_path": "Database/KeyFramesC00_V00/C00_V0000/000000.jpg",
+    "list_shot_id": ["000000","000039","000079","000096","000118","000158"],
+
+    "list_shot_path": [
+      {"shot_id": "000000", "shot_path": "Database/KeyFramesC00_V00/C00_V0000/000000.jpg"},
+      {"shot_id": "000039", "shot_path": "Database/KeyFramesC00_V00/C00_V0000/000039.jpg"},
+      {"shot_id": "000079", "shot_path": "Database/KeyFramesC00_V00/C00_V0000/000079.jpg"},
+      {"shot_id": "000096", "shot_path": "Database/KeyFramesC00_V00/C00_V0000/000096.jpg"},
+      {"shot_id": "000118", "shot_path": "Database/KeyFramesC00_V00/C00_V0000/000118.jpg"},
+      {"shot_id": "000158", "shot_path": "Database/KeyFramesC00_V00/C00_V0000/000158.jpg"}
+    ]
+  }
+}
+```
+
 ## Hướng dẫn cách sử dụng web
 ```
 python3 web.py

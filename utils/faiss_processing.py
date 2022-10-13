@@ -242,24 +242,39 @@ class MyFaiss():
   def write_csv(self, infos_query, des_path_submit):
     des_path = f"{des_path_submit}/submit.csv"
     check_files = []
-
+    
+    ### GET INFOS SUBMIT ###
     for info in infos_query:
       video_name = info['image_path'].split('/')[-2]
       lst_frames = info['list_shot_id']
 
       for id_frame in lst_frames:
         check_files.append(os.path.join(video_name, id_frame))
+    ###########################
     
     check_files = set(check_files)
+
+    if os.path.exists(des_path):
+        df_exist = pd.read_csv(des_path, header=None)
+        lst_check_exist = df_exist.values.tolist()      
+        check_exist = [info[0].replace('.mp4','/') + f"{info[1]:0>6d}" for info in lst_check_exist]
+
+        ##### FILTER EXIST LINES FROM SUBMIT.CSV FILE #####
+        check_files = [info for info in check_files if info not in check_exist]
+    else:
+      check_exist = []
+
     video_names = [i.split('/')[0] + '.mp4' for i in check_files]
     frame_ids = [i.split('/')[-1] for i in check_files]
 
     dct = {'video_names': video_names, 'frame_ids': frame_ids}
     df = pd.DataFrame(dct)
 
-    df.to_csv(des_path, header=False, index=False)
-
-    print(f"Save submit file to {des_path}")
+    if len(check_files) + len(check_exist) < 99:
+      df.to_csv(des_path, mode='a', header=False, index=False)
+      print(f"Save submit file to {des_path}")
+    else:
+      print('Exceed the allowed number of lines')
 
 def main():
   ##### CREATE JSON AND BIN FILES #####
@@ -274,7 +289,7 @@ def main():
   cosine_faiss = MyFaiss('./Database', bin_file, json_path)
 
   ##### IMAGE SEARCH #####
-  i_scores, infos_query, i_image_paths = cosine_faiss.text_search(id_query=9999, k=9)
+  i_scores, _, infos_query, i_image_paths = cosine_faiss.image_search(id_query=9999, k=9)
   # cosine_faiss.write_csv(infos_query, des_path_submit='./')
   cosine_faiss.show_images(i_image_paths)
 
@@ -285,7 +300,7 @@ def main():
         Sau đó là hình ảnh quay cận những chiếc mặt nạ. \
         Loại mặt nạ này được gọi là mặt nạ giấy bồi Trung thu.'
 
-  scores, infos_query, image_paths = cosine_faiss.text_search(text, k=9)
+  scores, _, infos_query, image_paths = cosine_faiss.text_search(text, k=9)
   # cosine_faiss.write_csv(infos_query, des_path_submit='./')
   cosine_faiss.show_images(image_paths)
 

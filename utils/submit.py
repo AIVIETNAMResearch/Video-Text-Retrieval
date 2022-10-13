@@ -44,7 +44,7 @@ def write_csv(id2img_fps, ids, des_path):
       df.to_csv(des_path, mode='a', header=False, index=False)
       print(f"Save submit file to {des_path}")
     else:
-      print('eExceed the allowed number of lines')
+      print('Exceed the allowed number of lines')
 
     return len(check_files) + len(check_exist), frame_ids
 
