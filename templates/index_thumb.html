@@ -120,8 +120,8 @@
             Text_query: <input id="text_query"></input>
             <!-- label_img_path: <input id="imgpath"></input> -->
             <button onclick="search();">Search</button>
-            <!-- <button onclick="gohome()">Home</button> -->
-                
+            <button onclick="reset()">Clear</button>
+            <button onclick="download_btn()">Download</button>
         </div>
 
         <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px; margin-top: 5px;"></div>
@@ -142,13 +142,11 @@
         data = data.replace(/\\/g, '/');
         data = JSON.parse(data);
        
-        console.log(data);
         function add_paging(){
             console.log(data['num_page']);
             var url = new URL(window.location.href);
             var cur_index = parseInt(url.searchParams.get("index"));
             var imgpath = url.searchParams.get("imgpath");
-            console.log(imgpath);
             // var labelpath = url.searchParams.get("labelpath");
             if (cur_index == 'undefined'){
                 cur_index = 0;
@@ -186,9 +184,7 @@
         }
 
         function add_img(){
-            console.log(data['pagefile'].length);
             for (i = 0; i < data['pagefile'].length; i++){
-                console.log(data['pagefile']);
                 imgpath = data['pagefile'][i]['imgpath']
                 id = data['pagefile'][i]['id']
                 // labelpath = data['pagefile'][i]['labelpath']
@@ -201,12 +197,12 @@
                 iImg.setAttribute("alt", imgpath);
                 iImg.setAttribute("width", 300);
                 iImg.setAttribute("height", 180);
-                // iImg.setAttribute("onclick", "show_list_segment('"+id+"');");
+                iImg.setAttribute("onclick", "show_list_segment('"+id+"');");
 
                 var box = document.createElement('button');
                 box.textContent = "sellect";
                 box.setAttribute('class', 'btn');
-                box.setAttribute('onclick',  "go_img_search('"+id+"');");
+                box.setAttribute('onclick',  "writecsv('"+id+"');");
 
                 var box_knn = document.createElement('button');
                 box_knn.textContent = "knn";
@@ -245,6 +241,11 @@
             window.open("/showsegment?imgid="+id);
         }
 
+        function writecsv(id){
+            alert("write list shot with id "+id);
+            window.open("/writecsv?imgid="+id);
+        }
+
 
         function search(){
             text_query = document.getElementById('text_query').value;
@@ -252,6 +253,14 @@
             window.location.href = "/textsearch?textquery="+text_query;
         }
 
+        function reset() {
+            alert("Clean file submit.csv");
+            window.location.href = "http://0.0.0.0:5001/thumbnailimg?index=0";
+        }
+
+        function download_btn(){
+            window.location.href = "dowload_submit_file?filepath=submission/submit.csv"
+        }
         
     </script>
 </body>

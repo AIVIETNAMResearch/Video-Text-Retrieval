@@ -214,7 +214,7 @@ class MyFaiss():
     # print(f"idx: {idx_image}")
     # print(f"paths: {image_paths}")
     
-    return scores, infos_query, image_paths
+    return scores, idx_image, infos_query, image_paths
 
   def text_search(self, text, k):
     if detect(text) == 'vi':
@@ -237,7 +237,7 @@ class MyFaiss():
     # print(f"idx: {idx_image}")
     # print(f"paths: {image_paths}")
 
-    return scores, infos_query, image_paths
+    return scores, idx_image, infos_query, image_paths
 
   def write_csv(self, infos_query, des_path_submit):
     des_path = f"{des_path_submit}/submit.csv"

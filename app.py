@@ -1,12 +1,15 @@
 
-from flask import Flask, render_template, jsonify, Response, request
+from flask import Flask, render_template, Response, request, send_file
 import cv2
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 import numpy as np
 import pandas as pd
 import json
+from pathlib import Path
+
 from utils.faiss_processing import MyFaiss
+from utils.submit import write_csv
 
 # http://0.0.0.0:5001/thumbnailimg?index=0
 
@@ -25,6 +28,14 @@ LenDictPath = len(CosineFaiss.id2img_fps)
 @app.route('/thumbnailimg')
 def thumbnailimg():
     print("load_iddoc")
+
+    # remove old file submit 
+    submit_path = os.path.join("submission", "submit.csv")
+    old_submit_path = Path(submit_path)
+    if old_submit_path.is_file():
+        os.remove(submit_path)
+        # open(submit_path, 'w').close()
+
     pagefile = []
     index = int(request.args.get('index'))
     if index == None:
@@ -69,12 +80,11 @@ def image_search():
     print("image search")
     pagefile = []
     id_query = int(request.args.get('imgid'))
-    _, list_idx, list_image_paths = CosineFaiss.image_search(id_query, k=200)
+    _, list_ids, _, list_image_paths = CosineFaiss.image_search(id_query, k=200)
 
-    # print("list_image_paths[0]: ", list_image_paths)
     imgperindex = 100 
 
-    for imgpath, id in zip(list_image_paths, list_idx):
+    for imgpath, id in zip(list_image_paths, list_ids):
         pagefile.append({'imgpath': imgpath, 'id': int(id)})
 
     data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
@@ -86,33 +96,44 @@ def text_search():
     print("text search")
     pagefile = []
     text_query = request.args.get('textquery')
-    _, list_idx, list_image_paths = CosineFaiss.text_search(text_query, k=200)
+    _, list_ids, _, list_image_paths = CosineFaiss.text_search(text_query, k=200)
 
     imgperindex = 100 
 
-    for imgpath, id in zip(list_image_paths, list_idx):
+    for imgpath, id in zip(list_image_paths, list_ids):
         pagefile.append({'imgpath': imgpath, 'id': int(id)})
 
     data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
     
     return render_template('index_thumb.html', data=data)
 
-# @app.route('/showsegment')
-# def show_segment():
-#     print("showsegment")
-#     pagefile = []
-#     id_query = int(request.args.get('imgid'))
+@app.route('/showsegment')
+def show_segment():
+    print("showsegment")
+    pagefile = []
+    id_query = int(request.args.get('imgid'))
 
-#     list_shot = DictImagePath[id_query]['shot']
+    list_shot_path = DictImagePath[id_query]['list_shot_path']
     
-#     imgperindex = 100 
-#     for shot_id in list_shot:
-#         pagefile.append({'imgpath': imgpath, 'id': int(id)})
+    imgperindex = 100 
+    for shot_info in list_shot_path:
+        pagefile.append({'imgpath': shot_info['shot_path'], 'id': int(shot_info['shot_id'])})
 
-#     data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
+    data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
     
-#     return render_template('index_thumb.html', data=data)
+    return render_template('index_thumb.html', data=data)
 
+@app.route('/writecsv')
+def submit():
+    print("writecsv")
+    id_query = int(request.args.get('imgid'))
+    
+    number_line, list_frame_id = write_csv(DictImagePath, id_query, "submission")
+    
+    str_fname = ",".join(list_frame_id[:])
+    str_fname += " #### number csv line: {}".format(number_line)
+
+    return str_fname
 
 @app.route('/get_img')
 def get_img():
@@ -135,6 +156,14 @@ def get_img():
     return  Response((b'--frame\r\n'
                      b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n'),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/dowload_submit_file', methods=['GET'])
+def dowload_submit_file():
+    print("dowload_submit_file")
+    fpath = request.args.get('filepath')
+    print("fpath", fpath)
+
+    return send_file(fpath, as_attachment=True)
 
 
 if __name__ == '__main__':
