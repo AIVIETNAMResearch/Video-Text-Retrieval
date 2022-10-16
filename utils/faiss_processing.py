@@ -46,7 +46,7 @@ class File4Faiss():
     count = 0
     self.infos = []
     des_path = os.path.join(json_path, "keyframes_id.json")
-    keyframe_paths = sorted(glob.glob(f'{self.root_database}/KeyFramesC0*_V00'))
+    keyframe_paths = sorted(glob.glob(f'{self.root_database}/KeyFramesC0*'))
 
     for kf in keyframe_paths:
       video_paths = sorted(glob.glob(f"{kf}/*"))
@@ -59,6 +59,7 @@ class File4Faiss():
 
         ###### Get scenes from video_path ######
         video_info = video_path.split('/')[-1]
+        
         with open(f'{shot_frames_path}/{video_info}.txt', 'r') as f:
           lst_range_shotes = f.readlines()
         lst_range_shotes = np.array([re.sub('\[|\]', '', line).strip().split(' ') for line in lst_range_shotes]).astype(np.uint32)
@@ -143,9 +144,10 @@ class File4Faiss():
       video_name = image_path.split('/')[-2] + '.npy'
 
       video_id = re.sub('_V\d+', '', image_path.split('/')[-2])
-      batch_name = f"CLIPFeatures_{video_id}_V00"
+      batch_name = image_path.split('/')[-3].split('_')[-1]
+      clip_name = f"CLIPFeatures_{video_id}_{batch_name}"
 
-      feat_path = os.path.join(self.root_database, batch_name, video_name) 
+      feat_path = os.path.join(self.root_database, clip_name, video_name) 
 
       feats = np.load(feat_path)
 
@@ -166,9 +168,7 @@ class File4Faiss():
     print(f"Number of Index: {count}")
 
 class MyFaiss():
-  def __init__(self, root_database: str, bin_file: str, json_path: str):
-    self.root_database = root_database
-    
+  def __init__(self, root_database: str, bin_file: str, json_path: str):    
     self.index = self.load_bin_file(bin_file)
     self.id2img_fps = self.load_json_file(json_path)
 
