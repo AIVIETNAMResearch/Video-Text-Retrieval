@@ -37,6 +37,15 @@ pip install -r requirements.txt
 }
 ```
 
+## Format dict_support_model.json
+```
+{"0": {
+    "image_path": 'Database/KeyFramesC00_V00/C00_V0000/000096.jpg',
+    "list_shot_id": ['000000','000039','000079','000096','000118','000158']
+  }
+}
+```
+
 ## Hướng dẫn cách sử dụng web
 ```
 python3 web.py
