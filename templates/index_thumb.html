@@ -192,7 +192,7 @@
                 // fname_ext = data['pagefile'][i]['fname_ext']
                 var iImg = document.createElement('img');
                 // iImg.setAttribute("src", "get_img?fpath="+imgpath+fname+"&boxes="+data['pagefile'][i]['boxes']);
-                iImg.setAttribute("src", "get_img?fpath="+imgpath+"&id="+id);
+                iImg.setAttribute("src", "get_img?fpath="+imgpath);
                 iImg.setAttribute("border", 0);
                 iImg.setAttribute("alt", imgpath);
                 iImg.setAttribute("width", 300);
@@ -251,6 +251,8 @@
             text_query = document.getElementById('text_query').value;
 
             window.location.href = "/textsearch?textquery="+text_query;
+            
+            document.getElementById('text_query').innerHTML = text_query;
         }
 
         function reset() {
