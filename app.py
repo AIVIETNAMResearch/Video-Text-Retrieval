@@ -139,7 +139,7 @@ def submit():
 def get_img():
     # print("get_img")
     fpath = request.args.get('fpath')
-    fpath = fpath
+    # fpath = fpath
     image_name = fpath.split("/")[-1]
 
     if os.path.exists(fpath):
@@ -147,6 +147,8 @@ def get_img():
     else:
         print("load 404.jph")
         img = cv2.imread("./static/images/404.jpg")
+
+    img = cv2.resize(img, (1280,720))
 
     # print(img.shape)
     img = cv2.putText(img, image_name, (30, 80), cv2.FONT_HERSHEY_SIMPLEX, 
@@ -167,4 +169,4 @@ def dowload_submit_file():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5001)
+    app.run(debug=False, host="0.0.0.0", port=5001)
