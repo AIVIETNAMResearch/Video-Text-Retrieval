@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, Response, request, send_file
+from flask import Flask, render_template, Response, request, send_file, jsonify
 import cv2
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
@@ -131,9 +131,14 @@ def submit():
     number_line, list_frame_id = write_csv(DictImagePath, id_query, "submission")
     
     str_fname = ",".join(list_frame_id[:])
-    str_fname += " #### number csv line: {}".format(number_line)
+    # str_fname += " #### number csv line: {}".format(number_line)
 
-    return str_fname
+    info = {
+        "str_fname": str_fname,
+        "number_line": str(number_line)
+    }
+
+    return jsonify(info)
 
 @app.route('/get_img')
 def get_img():

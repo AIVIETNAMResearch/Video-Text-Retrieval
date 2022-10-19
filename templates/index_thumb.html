@@ -109,6 +109,26 @@
             background-color: black;
         }
 
+        /* poup */
+        #popup_canvas{
+            width: 100%;
+            height: 100%;
+        }
+
+        #popup_fname_div{
+            position: fixed;
+            margin-left: 25%;
+            margin-top: 60%;
+            color: rgb(0,255,0);
+            font-size: 30;
+        }
+
+        /* #div_page_text{
+            text-align: center;
+            margin-top: 10px;
+        } */
+
+
     </style>
 
 </header>
@@ -123,6 +143,20 @@
             <button onclick="reset()">Clear</button>
             <button onclick="download_btn()">Download</button>
         </div>
+
+        <!-- setup -->
+        <!-- <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px;"></div>
+        <div class="popup_div" id="popup_div_outer">
+            <div class="popup_div_inner" id="popup_div_inner">
+                <div id="div_cls"></div>
+                <div id="div_score"></div>
+                <div id="div_fname"></div>
+                <canvas id="popup_canvas" style="border:1px solid #d3d3d3;">
+            </div>
+            <div id="popup_fname_div"></div>
+        </div>
+        <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px;"></div> -->
+        <!-- setup -->
 
         <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px; margin-top: 5px;"></div>
         <div id="div_img">
@@ -183,7 +217,7 @@
             document.getElementById("div_total_page").innerHTML = "Total: "+data['num_page'].toString()+" page";
         }
 
-        function add_img(){
+        function add_img(div_id_image){
             for (i = 0; i < data['pagefile'].length; i++){
                 imgpath = data['pagefile'][i]['imgpath']
                 id = data['pagefile'][i]['id']
@@ -195,6 +229,7 @@
                 iImg.setAttribute("src", "get_img?fpath="+imgpath);
                 iImg.setAttribute("border", 0);
                 iImg.setAttribute("alt", imgpath);
+                iImg.setAttribute("id", id);
                 iImg.setAttribute("width", 300);
                 iImg.setAttribute("height", 180);
                 iImg.setAttribute("onclick", "show_list_segment('"+id+"');");
@@ -217,7 +252,7 @@
                 div_image_button.appendChild(box_knn);
                 div_image_button.appendChild(iImg);
                 // iImg.appendChild(box);
-                document.getElementById("div_img").appendChild(div_image_button);
+                document.getElementById(div_id_image).appendChild(div_image_button);
 
                 // document.getElementById("div_img").appendChild(iImg);
             }
@@ -234,7 +269,7 @@
             document.getElementById('imgpath').value = imgpath;
             // document.getElementById('labelpath').value = labelpath;
             add_paging();
-            add_img();
+            add_img("div_img");
         }
 
         function show_list_segment(id){
@@ -242,8 +277,26 @@
         }
 
         function writecsv(id){
-            alert("write list shot with id "+id);
-            window.open("/writecsv?imgid="+id);
+            // alert("write list shot with id "+id);
+            // window.open("/writecsv?imgid="+id);
+
+            var info = {};
+            $.ajax({
+                url: "writecsv?imgid="+id,
+                type: 'GET',
+                async: false,
+                dataType: 'json',
+                success: function(res) {
+                    // console.log("res: ", res);
+                    info = res;
+                }
+            });
+            
+            str_fname = info["str_fname"]
+            number_line = info["number_line"]
+            my_alert = str_fname + ' ### number csv line: ' + number_line
+
+            alert("write list shot: " + my_alert);
         }
 
 
