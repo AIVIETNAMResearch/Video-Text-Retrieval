@@ -17,7 +17,7 @@ import pandas as pd
 import re
 from langdetect import detect
 
-class File4Faiss():
+class File4Faiss:
   def __init__(self, root_database: str):
     self.root_database = root_database
 
@@ -167,7 +167,7 @@ class File4Faiss():
     print(f'Saved {os.path.join(bin_path, f"faiss_{method}.bin")}')
     print(f"Number of Index: {count}")
 
-class MyFaiss():
+class MyFaiss:
   def __init__(self, root_database: str, bin_file: str, json_path: str):    
     self.index = self.load_bin_file(bin_file)
     self.id2img_fps = self.load_json_file(json_path)
@@ -239,8 +239,7 @@ class MyFaiss():
 
     return scores, idx_image, infos_query, image_paths
 
-  def write_csv(self, infos_query, des_path_submit):
-    des_path = f"{des_path_submit}/submit.csv"
+  def write_csv(self, infos_query, des_path):
     check_files = []
     
     ### GET INFOS SUBMIT ###
@@ -283,14 +282,14 @@ def main():
   # create_file.write_bin_file(bin_path='./', json_path='./keyframes_id.json', method='cosine')
 
   ##### TESTING #####
-  bin_file='./faiss_cosine.bin'
-  json_path = './dict/keyframes_id.json'
+  bin_file='dict/faiss_cosine.bin'
+  json_path = '/dict/keyframes_id.json'
 
   cosine_faiss = MyFaiss('./Database', bin_file, json_path)
 
   ##### IMAGE SEARCH #####
   i_scores, _, infos_query, i_image_paths = cosine_faiss.image_search(id_query=9999, k=9)
-  # cosine_faiss.write_csv(infos_query, des_path_submit='./')
+  # cosine_faiss.write_csv(infos_query, des_path='/content/submit.csv')
   cosine_faiss.show_images(i_image_paths)
 
   ##### TEXT SEARCH #####
@@ -301,7 +300,7 @@ def main():
         Loại mặt nạ này được gọi là mặt nạ giấy bồi Trung thu.'
 
   scores, _, infos_query, image_paths = cosine_faiss.text_search(text, k=9)
-  # cosine_faiss.write_csv(infos_query, des_path_submit='./')
+  # cosine_faiss.write_csv(infos_query, des_path='/content/submit.csv')
   cosine_faiss.show_images(image_paths)
 
 if __name__ == "__main__":
