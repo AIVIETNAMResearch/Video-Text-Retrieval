@@ -17,7 +17,7 @@ import pandas as pd
 import re
 from langdetect import detect
 
-class File4Faiss():
+class File4Faiss:
   def __init__(self, root_database: str):
     self.root_database = root_database
 
@@ -167,7 +167,7 @@ class File4Faiss():
     print(f'Saved {os.path.join(bin_path, f"faiss_{method}.bin")}')
     print(f"Number of Index: {count}")
 
-class MyFaiss():
+class MyFaiss:
   def __init__(self, root_database: str, bin_file: str, json_path: str):    
     self.index = self.load_bin_file(bin_file)
     self.id2img_fps = self.load_json_file(json_path)
@@ -239,39 +239,42 @@ class MyFaiss():
 
     return scores, idx_image, infos_query, image_paths
 
-  def write_csv(self, infos_query, des_path_submit):
-    des_path = f"{des_path_submit}/submit.csv"
-    check_files = []
-    
+  def write_csv(self, infos_query, scores, des_path):
+    video_names = []
+    frame_ids = []
+    score_ids = []
+
     ### GET INFOS SUBMIT ###
-    for info in infos_query:
-      video_name = info['image_path'].split('/')[-2]
+    for score, info in zip(scores.flatten().tolist(), infos_query):
+      video_name = info['image_path'].split('/')[-2] + '.mp4'
       lst_frames = info['list_shot_id']
 
       for id_frame in lst_frames:
-        check_files.append(os.path.join(video_name, id_frame))
+        video_names.append(video_name)
+        frame_ids.append(id_frame)
+        score_ids.append(score)
     ###########################
-    
-    check_files = set(check_files)
 
+    ### FORMAT DATAFRAME ###
+    check_files = {"video_names": video_names, "frame_ids": frame_ids, "scores": score_ids}
+    df = pd.DataFrame(check_files)
+    ###########################
+
+    ### Merge csv exist file to faiss search information ###
     if os.path.exists(des_path):
-        df_exist = pd.read_csv(des_path, header=None)
-        lst_check_exist = df_exist.values.tolist()      
-        check_exist = [info[0].replace('.mp4','/') + f"{info[1]:0>6d}" for info in lst_check_exist]
+      df_exist = pd.read_csv(des_path, header=None, names=["video_names", "frame_ids", "scores"])
+      
+      df.append(df_exist)
 
-        ##### FILTER EXIST LINES FROM SUBMIT.CSV FILE #####
-        check_files = [info for info in check_files if info not in check_exist]
-    else:
-      check_exist = []
+    ### Return DataFrame with duplicate rows removed ###
+    df.drop_duplicates(subset=["video_names", "frame_ids"], inplace=True)
 
-    video_names = [i.split('/')[0] + '.mp4' for i in check_files]
-    frame_ids = [i.split('/')[-1] for i in check_files]
+    ### Sort By Score ###
+    df.sort_values(by=['scores'])
 
-    dct = {'video_names': video_names, 'frame_ids': frame_ids}
-    df = pd.DataFrame(dct)
-
-    if len(check_files) + len(check_exist) < 99:
-      df.to_csv(des_path, mode='a', header=False, index=False)
+    ### Specifies up to 100 lines ###
+    if len(df) < 99:
+      df.to_csv(des_path, header=False, index=False)
       print(f"Save submit file to {des_path}")
     else:
       print('Exceed the allowed number of lines')
@@ -290,7 +293,7 @@ def main():
 
   ##### IMAGE SEARCH #####
   i_scores, _, infos_query, i_image_paths = cosine_faiss.image_search(id_query=9999, k=9)
-  # cosine_faiss.write_csv(infos_query, des_path_submit='./')
+  # cosine_faiss.write_csv(infos_query, scores, des_path='/content/submit.csv')
   cosine_faiss.show_images(i_image_paths)
 
   ##### TEXT SEARCH #####
@@ -301,7 +304,7 @@ def main():
         Loại mặt nạ này được gọi là mặt nạ giấy bồi Trung thu.'
 
   scores, _, infos_query, image_paths = cosine_faiss.text_search(text, k=9)
-  # cosine_faiss.write_csv(infos_query, des_path_submit='./')
+  # cosine_faiss.write_csv(infos_query, scores, des_path='/content/submit.csv')
   cosine_faiss.show_images(image_paths)
 
 if __name__ == "__main__":
