@@ -1,6 +1,6 @@
 import os
 import cv2 
-import glob
+from glob import glob
 import pandas as pd
 from tqdm import tqdm
 
@@ -25,7 +25,8 @@ def reformat_keyframe_name(list_csv_paths:str, list_frame_paths:str):
     :param list_csv_paths: the path to the folder containing the csv files. If folder contains Batch1 and Batch2 csv then function will rename all frame in Batch1 and Batch2.
     :param list_frame_paths: the path to the folder containing the frames
     """
-    lst_csv = glob(list_csv_paths)
+    lst_csv = glob(f'{list_csv_paths}/*.csv')
+    print("lst_csv: ", lst_csv)
     lst_csv.sort()
     dct_names = {}
 

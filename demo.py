@@ -1,6 +1,7 @@
-from utils.process_keyframes import resize_keyframes
+from utils.process_keyframes import reformat_keyframe_name
 
 if __name__ == "__main__":
-    database_path = "Database"
+    list_csv_paths = "dict/keyframe_p"
+    list_frame_paths = "Database"
 
-    resize_keyframes(database_path)
+    reformat_keyframe_name(list_csv_paths, list_frame_paths)

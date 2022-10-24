@@ -145,7 +145,8 @@ def get_img():
     # print("get_img")
     fpath = request.args.get('fpath')
     # fpath = fpath
-    image_name = fpath.split("/")[-1]
+    list_image_name = fpath.split("/")
+    image_name = "/".join(list_image_name[-2:])
 
     if os.path.exists(fpath):
         img = cv2.imread(fpath)
