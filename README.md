@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ```
 ## Download requirement files
 - [Cosine_bin_file](https://drive.google.com/file/d/1EvNbgNG4ObUagwg1nXlzNQFpMdzpQinZ/view?usp=sharing)
-- [Keyframes_id](https://drive.google.com/file/d/1EvNbgNG4ObUagwg1nXlzNQFpMdzpQinZ/view?usp=sharing)
+- [Keyframes_id](https://drive.google.com/file/d/16zrk4v9lki2k30c3YxmO2gESHt99KGaY/view?usp=sharing)
 
 ## Format Keyframes_id.json
 ```
