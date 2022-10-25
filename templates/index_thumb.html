@@ -144,6 +144,12 @@
             <button onclick="download_btn()">Download</button>
         </div>
 
+        <div>
+            Search Image_path: <input id="search_image_path" placeholder="C00_V0130/028539.jpg"></input>
+            <!-- label_img_path: <input id="imgpath"></input> -->
+            <button onclick="search_image_path();">Search image</button>
+        </div>
+
         <!-- setup -->
         <!-- <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px;"></div>
         <div class="popup_div" id="popup_div_outer">
@@ -298,7 +304,13 @@
 
             alert("write list shot: " + my_alert);
         }
+        
+        function search_image_path(){
+            frame_path = document.getElementById('search_image_path').value;
 
+            window.open("/search_image_path?frame_path="+frame_path)
+            
+        }
 
         function search(){
             text_query = document.getElementById('text_query').value;

@@ -18,8 +18,13 @@ pip install -r requirements.txt
 ## Download requirement files
 - [Cosine_bin_file](https://drive.google.com/file/d/12cECELQSHAGvc6hM96pMwlIDCi-G2CVR/view?usp=sharing)
 - [Keyframes_id](https://drive.google.com/file/d/16zrk4v9lki2k30c3YxmO2gESHt99KGaY/view?usp=sharing)
+- [dict_id2img_path](https://drive.google.com/file/d/13zu_GVMJCUddbKmMVuQXEAPo6iKSbXxg/view?usp=sharing)
+- [dict_img2id_path](https://drive.google.com/file/d/1nLxUBCks8ow9wSsKbRdpL52GCD0esX9Z/view?usp=sharing)
+- [keyframe_path2id](
+https://drive.google.com/file/d/1-AldUDsWt01pfS6n2-q8c2sSFbXxOUF1/view?usp=sharing)
 
 ## Format Keyframes_id.json
+Chứa thông tin của tất cả keyframe trong database
 ```
 {"0": {
     "image_path": "Database/KeyFramesC00_V00/C00_V0000/000000.jpg",
@@ -43,6 +48,43 @@ pip install -r requirements.txt
     "image_path": 'Database/KeyFramesC00_V00/C00_V0000/000096.jpg',
     "list_shot_id": ['000000','000039','000079','000096','000118','000158']
   }
+}
+```
+
+## Format dict_img2id_path.json
+Thông tin chi tiết của từng frame trong mỗi video, frame và số thứ tự của frame trong video
+```
+{
+"C00_V00": {
+        "C00_V0000": {
+                "00000.jpg": 0, # image path của ảnh 1
+                "00001.jpg" 1, # image path của ảnh 2 
+                ......,
+                "n.jph": n, # image path của ảnh n
+                "total_image": # tổng số lượng ảnh của C00_V0000
+            }
+        ....
+    }
+....
+}
+```
+
+## Format dict_id2img_path.json
+Thông tin chi tiết của từng frame trong mỗi video, frame và số thứ tự của frame trong video
+
+```
+{
+"C00_V00": {
+        "C00_V0000": {
+                0: "00000.jpg", # image path của ảnh 1
+                1: "00001.jpg", # image path của ảnh 2 
+                ......,
+                n: "n.jph", # image path của ảnh n
+                "total_image": # tổng số lượng ảnh của C00_V0000
+            }
+        ....
+    }
+....
 }
 ```
 

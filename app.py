@@ -19,6 +19,18 @@ app = Flask(__name__, template_folder='templates')
 # Faiss
 bin_file='dict/faiss_cosine.bin'
 json_path = 'dict/keyframes_id.json'
+json_id2img_path = 'dict/dict_id2img_path.json'
+json_img2id_path = 'dict/dict_img2id_path.json'
+json_keyframe2id = 'dict/keyframe_path2id.json'
+
+with open(json_id2img_path, 'r') as f:
+    DictId2Img = json.loads(f.read())
+
+with open(json_img2id_path, 'r') as f:
+    DictImg2Id = json.loads(f.read())
+
+with open(json_keyframe2id, 'r') as f:
+    DictKeyframe2Id = json.loads(f.read())
 
 CosineFaiss = MyFaiss('Database', bin_file, json_path)
 DictImagePath = CosineFaiss.id2img_fps
@@ -119,6 +131,31 @@ def show_segment():
     for shot_info in list_shot_path:
         pagefile.append({'imgpath': shot_info['shot_path'], 'id': int(shot_info['shot_id'])})
 
+    # show  around 200 key image
+    frame_path = DictImagePath[id_query]["image_path"]
+    list_split = frame_path.split("/")
+    keyframe_dir = list_split[1][-7:]
+    video_dir = list_split[2]
+    image_name = list_split[3]
+
+
+    total_image_in_video = int(DictImg2Id[keyframe_dir][video_dir]["total_image"])
+    number_image_id_in_video = int(DictImg2Id[keyframe_dir][video_dir][image_name])
+
+    first_index_in_video = number_image_id_in_video-200 if number_image_id_in_video-200>0 else 0
+    last_index_in_video = number_image_id_in_video+200 if number_image_id_in_video+200<total_image_in_video else total_image_in_video
+
+    frame_index = first_index_in_video
+    while frame_index < last_index_in_video:
+        new_frame_name = DictId2Img[keyframe_dir][video_dir][str(frame_index)]
+        frame_in_video_path =  os.path.join("Database", "KeyFrames"+keyframe_dir, video_dir, new_frame_name)
+
+        if frame_in_video_path in DictKeyframe2Id:
+            frame_id_in_video_path = DictKeyframe2Id[frame_in_video_path]
+            pagefile.append({'imgpath': frame_in_video_path, 'id': int(frame_id_in_video_path)})
+
+        frame_index += 1
+
     data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
     
     return render_template('index_thumb.html', data=data)
@@ -172,6 +209,44 @@ def dowload_submit_file():
     print("fpath", fpath)
 
     return send_file(fpath, as_attachment=True)
+
+@app.route('/search_image_path')
+def search_image_path():
+    pagefile = []
+    frame_path = request.args.get('frame_path')
+    list_frame_split = frame_path.split("/")
+
+    video_dir = list_frame_split[0]
+    image_name = list_frame_split[1]
+    keyframe_dir = video_dir[:-2]
+
+    frame_path = os.path.join("Database", "KeyFrames"+keyframe_dir, video_dir, image_name)
+    frame_id = DictKeyframe2Id[frame_path]
+    
+    imgperindex = 100 
+    pagefile.append({'imgpath': frame_path, 'id': int(frame_id)})
+
+    # show  around 30 key image
+    total_image_in_video = int(DictImg2Id[keyframe_dir][video_dir]["total_image"])
+    number_image_id_in_video = int(DictImg2Id[keyframe_dir][video_dir][image_name])
+
+    first_index_in_video = number_image_id_in_video-30 if number_image_id_in_video-30>0 else 0
+    last_index_in_video = number_image_id_in_video+30 if number_image_id_in_video+30<total_image_in_video else total_image_in_video
+
+    frame_index = first_index_in_video
+    while frame_index < last_index_in_video:
+        new_frame_name = DictId2Img[keyframe_dir][video_dir][str(frame_index)]
+        frame_in_video_path =  os.path.join("Database", "KeyFrames"+keyframe_dir, video_dir, new_frame_name)
+
+        if frame_in_video_path in DictKeyframe2Id:
+            frame_id_in_video_path = DictKeyframe2Id[frame_in_video_path]
+            pagefile.append({'imgpath': frame_in_video_path, 'id': int(frame_id_in_video_path)})
+
+        frame_index += 1
+
+    data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
+    
+    return render_template('index_thumb.html', data=data)
 
 
 if __name__ == '__main__':
