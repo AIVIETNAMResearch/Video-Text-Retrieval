@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ```
 ## Download requirement files
 - [Cosine_bin_file](https://drive.google.com/file/d/12cECELQSHAGvc6hM96pMwlIDCi-G2CVR/view?usp=sharing)
-- [Keyframes_id](https://drive.google.com/file/d/16zrk4v9lki2k30c3YxmO2gESHt99KGaY/view?usp=sharing)
+- [Keyframes_id](https://drive.google.com/file/d/1Vc4QULuk5UqglcdFU2Pj97JzPNgGPNtT/view?usp=sharing)
 - [dict_id2img_path](https://drive.google.com/file/d/13zu_GVMJCUddbKmMVuQXEAPo6iKSbXxg/view?usp=sharing)
 - [dict_img2id_path](https://drive.google.com/file/d/1nLxUBCks8ow9wSsKbRdpL52GCD0esX9Z/view?usp=sharing)
 - [keyframe_path2id](
