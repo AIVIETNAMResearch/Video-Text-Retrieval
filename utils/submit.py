@@ -1,6 +1,7 @@
 import json
 import os
 import pandas as pd
+import copy
 
 def load_json_file(json_path: str):
     with open(json_path, 'r') as f:
@@ -8,46 +9,50 @@ def load_json_file(json_path: str):
 
     return {int(k):v for k,v in js.items()}
 
-def write_csv(id2img_fps, selected_image, ids, des_path):
-    print(selected_image)
-    des_path = os.path.join(des_path, 'query-1.csv')
-    check_files = []
+def write_csv(id2img_fps, selected_image, id, des_path):
+    des_path = os.path.join(des_path, 'submit.csv')
+    video_names = []
+    frame_ids = []
+
+    ### GET SELECTED SUBMIT ###
+    video_name_selected = selected_image.split('/')[-2] + '.mp4'
+    id_frame_selected = selected_image.split('/')[-1].replace('.jpg', '')
+
+    video_names.append(video_name_selected)
+    frame_ids.append(id_frame_selected)
+    ############################
 
     ### GET INFOS SUBMIT ###
-    # for id in ids:
-    info = id2img_fps[ids] # id
-    video_name = info['image_path'].split('/')[-2]
+    info = copy.deepcopy(id2img_fps[id])
+    video_name = info['image_path'].split('/')[-2] + '.mp4'
     lst_frames = info['list_shot_id']
+    lst_frames.remove(id_frame_selected)
 
     for id_frame in lst_frames:
-        check_files.append(os.path.join(video_name, id_frame))
+      video_names.append(video_name)
+      frame_ids.append(id_frame)
+    #########################
+
+    ### FORMAT DATAFRAME ###
+    check_files = {"video_names": video_names, "frame_ids": [int(i) for i in frame_ids]}
+    df_selected = pd.DataFrame(check_files)
     ###########################
 
-    check_files = set(check_files)
-
     if os.path.exists(des_path):
-        df_exist = pd.read_csv(des_path, header=None)
-        lst_check_exist = df_exist.values.tolist()      
-        check_exist = [info[0].replace('.mp4','/') + f"{info[1]:0>6d}" for info in lst_check_exist]
-
-        ##### FILTER EXIST LINES FROM SUBMIT.CSV FILE #####
-        check_files = [info for info in check_files if info not in check_exist]
+        df_exist = pd.read_csv(des_path, names=["video_names", "frame_ids"])
+        ##### Find Rows in df_selected Which Are Not Available in df_exist #####
+        df_save = df_selected.merge(df_exist, how='outer', indicator=True).query('_merge == "left_only"').drop('_merge', 1)
     else:
-      check_exist = []
+      df_exist = {}
+      df_save = df_selected
 
-    video_names = [i.split('/')[0] + '.mp4' for i in check_files]
-    frame_ids = [i.split('/')[-1] for i in check_files]
-
-    dct = {'video_names': video_names, 'frame_ids': frame_ids}
-    df = pd.DataFrame(dct)
-
-    if len(check_files) + len(check_exist) < 99:
-      df.to_csv(des_path, mode='a', header=False, index=False)
+    if len(df_save) + len(df_exist) < 99:
+      df_save.to_csv(des_path, mode='a', header=False, index=False)
       print(f"Save submit file to {des_path}")
     else:
       print('Exceed the allowed number of lines')
 
-    return len(check_files) + len(check_exist), frame_ids
+    return len(df_save) + len(df_exist), frame_ids
 
 if __name__ == "__main__":
     ids = 1
