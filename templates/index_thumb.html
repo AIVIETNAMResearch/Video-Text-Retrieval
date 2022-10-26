@@ -243,7 +243,7 @@
                 var box = document.createElement('button');
                 box.textContent = "sellect";
                 box.setAttribute('class', 'btn');
-                box.setAttribute('onclick',  "writecsv('"+id+"+"+imgpath+"');");
+                box.setAttribute('onclick',  "writecsv('"+id+","+imgpath+"');");
 
                 var box_knn = document.createElement('button');
                 box_knn.textContent = "knn";
@@ -278,7 +278,7 @@
             add_img("div_img");
         }
 
-        function show_list_segment(id){
+        function show_list_segment(id, imgpath){
             window.open("/showsegment?imgid="+id);
         }
 

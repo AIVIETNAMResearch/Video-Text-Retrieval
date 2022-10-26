@@ -8,8 +8,9 @@ def load_json_file(json_path: str):
 
     return {int(k):v for k,v in js.items()}
 
-def write_csv(id2img_fps, ids, des_path):
-    des_path = os.path.join(des_path, 'submit.csv')
+def write_csv(id2img_fps, selected_image, ids, des_path):
+    print(selected_image)
+    des_path = os.path.join(des_path, 'query-1.csv')
     check_files = []
 
     ### GET INFOS SUBMIT ###
