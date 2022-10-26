@@ -170,8 +170,12 @@ def show_segment():
 @app.route('/writecsv')
 def submit():
     print("writecsv")
-    id_query = int(request.args.get('imgid'))
-    selected_image = request.args.get('imgpath')
+    info_key = request.args.get('info_key')
+    print("info_key", info_key)
+    info_key = info_key.split(",")
+
+    id_query = int(info_key[0])
+    selected_image = info_key[1]
     
     number_line, list_frame_id = write_csv(DictImagePath, selected_image, id_query, "submission")
     

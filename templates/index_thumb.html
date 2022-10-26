@@ -278,17 +278,18 @@
             add_img("div_img");
         }
 
-        function show_list_segment(id, imgpath){
+        function show_list_segment(id){
             window.open("/showsegment?imgid="+id);
         }
 
-        function writecsv(id){
+        function writecsv(info_key){
             // alert("write list shot with id "+id);
             // window.open("/writecsv?imgid="+id);
+            console.log("info_key: " + info_key);
 
             var info = {};
             $.ajax({
-                url: "writecsv?imgid="+id+"&imgpath="+imgpath,
+                url: "writecsv?info_key="+info_key,
                 type: 'GET',
                 async: false,
                 dataType: 'json',
@@ -332,4 +333,4 @@
         
     </script>
 </body>
-</html>
+</html> 
