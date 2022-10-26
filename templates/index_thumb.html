@@ -140,12 +140,12 @@
             Text_query: <input id="text_query"></input>
             <!-- label_img_path: <input id="imgpath"></input> -->
             <button onclick="search();">Search</button>
-            <button onclick="reset()">Clear</button>
+            <!-- <button onclick="reset()">Clear</button> -->
             <button onclick="download_btn()">Download</button>
         </div>
 
         <div>
-            Search Image_path: <input id="search_image_path" placeholder="C00_V0130/028539.jpg"></input>
+            Search Image_path: <input id="search_image_path" placeholder="C00_V0130/028539"></input>
             <!-- label_img_path: <input id="imgpath"></input> -->
             <button onclick="search_image_path();">Search image</button>
         </div>
@@ -243,7 +243,7 @@
                 var box = document.createElement('button');
                 box.textContent = "sellect";
                 box.setAttribute('class', 'btn');
-                box.setAttribute('onclick',  "writecsv('"+id+"');");
+                box.setAttribute('onclick',  "writecsv('"+id+"+"+imgpath+"');");
 
                 var box_knn = document.createElement('button');
                 box_knn.textContent = "knn";
@@ -288,7 +288,7 @@
 
             var info = {};
             $.ajax({
-                url: "writecsv?imgid="+id,
+                url: "writecsv?imgid="+id+"&imgpath="+imgpath,
                 type: 'GET',
                 async: false,
                 dataType: 'json',
@@ -320,13 +320,14 @@
             document.getElementById('text_query').innerHTML = text_query;
         }
 
-        function reset() {
-            alert("Clean file submit.csv");
-            window.location.href = "http://0.0.0.0:5001/thumbnailimg?index=0";
-        }
+        // function reset() {
+        //     alert("Clean file submit.csv");
+        //     window.location.href = "http://0.0.0.0:5001/thumbnailimg?index=0";
+        // }
 
         function download_btn(){
             window.location.href = "dowload_submit_file?filepath=submission/submit.csv"
+            // window.location.href = "http://0.0.0.0:5001/thumbnailimg?index=0";
         }
         
     </script>

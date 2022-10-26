@@ -35,6 +35,7 @@ with open(json_keyframe2id, 'r') as f:
 CosineFaiss = MyFaiss('Database', bin_file, json_path)
 DictImagePath = CosineFaiss.id2img_fps
 LenDictPath = len(CosineFaiss.id2img_fps)
+print("LenDictPath: ", LenDictPath)
 # CosineFaiss.id2img_fps
 
 @app.route('/thumbnailimg')
@@ -106,6 +107,12 @@ def image_search():
 @app.route('/textsearch')
 def text_search():
     print("text search")
+     # remove old file submit 
+    submit_path = os.path.join("submission", "submit.csv")
+    old_submit_path = Path(submit_path)
+    if old_submit_path.is_file():
+        os.remove(submit_path)
+
     pagefile = []
     text_query = request.args.get('textquery')
     _, list_ids, _, list_image_paths = CosineFaiss.text_search(text_query, k=200)
@@ -164,8 +171,9 @@ def show_segment():
 def submit():
     print("writecsv")
     id_query = int(request.args.get('imgid'))
+    selected_image = request.args.get('imgpath')
     
-    number_line, list_frame_id = write_csv(DictImagePath, id_query, "submission")
+    number_line, list_frame_id = write_csv(DictImagePath, selected_image, id_query, "submission")
     
     str_fname = ",".join(list_frame_id[:])
     # str_fname += " #### number csv line: {}".format(number_line)
@@ -217,7 +225,7 @@ def search_image_path():
     list_frame_split = frame_path.split("/")
 
     video_dir = list_frame_split[0]
-    image_name = list_frame_split[1]
+    image_name = list_frame_split[1] + ".jpg"
     keyframe_dir = video_dir[:-2]
 
     frame_path = os.path.join("Database", "KeyFrames"+keyframe_dir, video_dir, image_name)
