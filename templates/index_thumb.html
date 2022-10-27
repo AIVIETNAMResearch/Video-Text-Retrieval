@@ -140,7 +140,7 @@
             Text_query: <input id="text_query"></input>
             <!-- label_img_path: <input id="imgpath"></input> -->
             <button onclick="search();">Search</button>
-            <!-- <button onclick="reset()">Clear</button> -->
+            <button onclick="reset()">Clear</button>
             <button onclick="download_btn()">Download</button>
         </div>
 
@@ -321,14 +321,13 @@
             document.getElementById('text_query').innerHTML = text_query;
         }
 
-        // function reset() {
-        //     alert("Clean file submit.csv");
-        //     window.location.href = "http://0.0.0.0:5001/thumbnailimg?index=0";
-        // }
+        function reset() {
+            alert("Clean file submit.csv");
+            window.location.href = "http://0.0.0.0:5001/thumbnailimg?index=0";
+        }
 
         function download_btn(){
-            window.location.href = "dowload_submit_file?filepath=submission/submit.csv"
-            // window.location.href = "http://0.0.0.0:5001/thumbnailimg?index=0";
+            window.location.href = "dowload_submit_file?filename=submit.csv"
         }
         
     </script>

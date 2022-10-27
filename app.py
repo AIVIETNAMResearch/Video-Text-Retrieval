@@ -108,10 +108,10 @@ def image_search():
 def text_search():
     print("text search")
      # remove old file submit 
-    submit_path = os.path.join("submission", "submit.csv")
-    old_submit_path = Path(submit_path)
-    if old_submit_path.is_file():
-        os.remove(submit_path)
+    # submit_path = os.path.join("submission", "submit.csv")
+    # old_submit_path = Path(submit_path)
+    # if old_submit_path.is_file():
+    #     os.remove(submit_path)
 
     pagefile = []
     text_query = request.args.get('textquery')
@@ -217,7 +217,8 @@ def get_img():
 @app.route('/dowload_submit_file', methods=['GET'])
 def dowload_submit_file():
     print("dowload_submit_file")
-    fpath = request.args.get('filepath')
+    filename = request.args.get('filename')
+    fpath = os.path.join("submission", filename)
     print("fpath", fpath)
 
     return send_file(fpath, as_attachment=True)
@@ -262,4 +263,8 @@ def search_image_path():
 
 
 if __name__ == '__main__':
+    submit_dir = "submission"
+    if not os.path.exists(submit_dir):
+        os.mkdir(submit_dir)
+
     app.run(debug=False, host="0.0.0.0", port=5001)
