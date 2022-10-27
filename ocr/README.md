@@ -7,5 +7,5 @@
 ](url)
 
 ## Link colab để test
-[https://colab.research.google.com/drive/1-zKAsBzE0x7qcz5I4ab-gZlYmOo0uwLf?authuser=1#scrollTo=L_Ta3Q0BHEUr](Tại đây)
+[https://colab.research.google.com/drive/1-zKAsBzE0x7qcz5I4ab-gZlYmOo0uwLf?authuser=1#scrollTo=L_Ta3Q0BHEUr](Link)
 
