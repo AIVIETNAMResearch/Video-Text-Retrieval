@@ -151,9 +151,18 @@
         </div>
 
 		<div>
-            <input id="get_file" type="file" value="Get File" style="width: 250px"/>
+            <!-- <input id="get_file" type="file" value="Get File" style="width: 250px"/> -->
+            Number of query: <input id="number_of_query" placeholder="1"></input>
             <button onclick="visualize();">Visualize</button>
 
+        </div>
+
+        <div>
+            <label for="mode_csv">Choose a mode write csv:</label>
+                <select id="mode_write_csv">
+                    <option value="single">single</option>
+                    <option value="list_shot">list_shot</option>
+                </select>
         </div>
 
         <!-- setup -->
@@ -292,10 +301,11 @@
             // alert("write list shot with id "+id);
             // window.open("/writecsv?imgid="+id);
             console.log("info_key: " + info_key);
-
+            var mode_write_csv = document.getElementById("mode_write_csv").value;
+            console.log("mode_write_csv: " + mode_write_csv);
             var info = {};
             $.ajax({
-                url: "writecsv?info_key="+info_key,
+                url: "writecsv?info_key="+info_key+"&mode="+mode_write_csv,
                 type: 'GET',
                 async: false,
                 dataType: 'json',
@@ -313,9 +323,9 @@
         }
         
         function visualize(){
-            var filePath=document.getElementById('get_file').value;
-            var filename = /.*(query.+\.csv)/.exec(filePath);
-            window.location.href = "/visualize?filepath=submission/"+filename[1]
+            var number_of_query=document.getElementById('number_of_query').value;
+            console.log("number_of_query: "+number_of_query);
+            window.location.href = "visualize?number_of_query="+number_of_query;
         }
 
         function search_image_path(){

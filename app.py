@@ -171,13 +171,15 @@ def show_segment():
 def submit():
     print("writecsv")
     info_key = request.args.get('info_key')
+    mode_write_csv = request.args.get('mode')
     print("info_key", info_key)
+    print("mode: ", mode_write_csv)
     info_key = info_key.split(",")
 
     id_query = int(info_key[0])
     selected_image = info_key[1]
     
-    number_line, list_frame_id = write_csv(DictImagePath, selected_image, id_query, "submission")
+    number_line, list_frame_id = write_csv(DictImagePath, mode_write_csv, selected_image, id_query, "submission")
     
     str_fname = ",".join(list_frame_id[:])
     # str_fname += " #### number csv line: {}".format(number_line)
@@ -225,13 +227,15 @@ def dowload_submit_file():
 
 @app.route('/visualize')
 def visualize():
-    csv_path = request.args.get('filepath')
+    number_of_query = int(request.args.get('number_of_query'))
+    csv_path = os.path.join("submission", "query-{}.csv".format(number_of_query))
     pagefile = []
     lst_frame = show_csv(csv_path)
     for frame_path in lst_frame:
         frame_id = DictKeyframe2Id[frame_path]
         pagefile.append({'imgpath': frame_path, 'id': int(frame_id)})
     data = {'num_page': 1, 'pagefile': pagefile}
+
     return render_template('index_thumb.html', data=data)
 
 @app.route('/search_image_path')
