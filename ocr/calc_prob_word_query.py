@@ -10,7 +10,7 @@ def top200(path_query, ocr, top_n = 200):
   
   results = ocr.apply(lambda x: fuzz.token_sort_ratio(query, str(x['text'])), axis=1)
   ocr['results'] = results
-  results_top200 = ocr.sort_values(by='results', ascending=False).head(200)
+  results_top200 = ocr.sort_values(by='results', ascending=False).head(top_n)
 
   return results_top200
 
