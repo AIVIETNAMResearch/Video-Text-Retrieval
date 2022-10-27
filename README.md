@@ -16,8 +16,8 @@ pip install git+https://github.com/openai/CLIP.git
 pip install -r requirements.txt
 ```
 ## Download requirement files
-- [Cosine_bin_file](https://drive.google.com/file/d/12cECELQSHAGvc6hM96pMwlIDCi-G2CVR/view?usp=sharing)
-- [Keyframes_id](https://drive.google.com/file/d/1Vc4QULuk5UqglcdFU2Pj97JzPNgGPNtT/view?usp=sharing)
+- [Cosine_bin_file](https://drive.google.com/file/d/1COA4Vks5JbRjCAQAUF5P8VKmUTkq8ncW/view?usp=sharing)
+- [Keyframes_id](https://drive.google.com/file/d/10bqwSHOoGD9MW5_4wArj9XLK5CR6AjHd/view?usp=sharing)
 - [dict_id2img_path](https://drive.google.com/file/d/13zu_GVMJCUddbKmMVuQXEAPo6iKSbXxg/view?usp=sharing)
 - [dict_img2id_path](https://drive.google.com/file/d/1nLxUBCks8ow9wSsKbRdpL52GCD0esX9Z/view?usp=sharing)
 - [keyframe_path2id](
