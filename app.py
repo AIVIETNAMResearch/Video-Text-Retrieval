@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 from utils.faiss_processing import MyFaiss
-from utils.submit import write_csv
+from utils.submit import write_csv, show_csv
 
 # http://0.0.0.0:5001/thumbnailimg?index=0
 
@@ -222,6 +222,17 @@ def dowload_submit_file():
     print("fpath", fpath)
 
     return send_file(fpath, as_attachment=True)
+
+@app.route('/visualize')
+def visualize():
+    csv_path = request.args.get('filepath')
+    pagefile = []
+    lst_frame = show_csv(csv_path)
+    for frame_path in lst_frame:
+        frame_id = DictKeyframe2Id[frame_path]
+        pagefile.append({'imgpath': frame_path, 'id': int(frame_id)})
+    data = {'num_page': 1, 'pagefile': pagefile}
+    return render_template('index_thumb.html', data=data)
 
 @app.route('/search_image_path')
 def search_image_path():

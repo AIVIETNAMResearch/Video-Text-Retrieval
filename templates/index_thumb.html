@@ -150,6 +150,12 @@
             <button onclick="search_image_path();">Search image</button>
         </div>
 
+		<div>
+            <input id="get_file" type="file" value="Get File" style="width: 250px"/>
+            <button onclick="visualize();">Visualize</button>
+
+        </div>
+
         <!-- setup -->
         <!-- <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px;"></div>
         <div class="popup_div" id="popup_div_outer">
@@ -306,6 +312,12 @@
             alert("write list shot: " + my_alert);
         }
         
+        function visualize(){
+            var filePath=document.getElementById('get_file').value;
+            var filename = /.*(query.+\.csv)/.exec(filePath);
+            window.location.href = "/visualize?filepath=submission/"+filename[1]
+        }
+
         function search_image_path(){
             frame_path = document.getElementById('search_image_path').value;
 

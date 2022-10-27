@@ -54,6 +54,16 @@ def write_csv(id2img_fps, selected_image, id, des_path):
 
     return len(df_save) + len(df_exist), frame_ids
 
+def show_csv(csv_path):
+  submit_csv = pd.read_csv(csv_path, header = None)
+
+  # x[0]: C00_V0135.mp4
+  # x[1]: 013053
+  # f'Database/KeyFrames{str(x[0])[:-6]}/{x[0][:-4]}/{x[1]:06}.jpg' => Frame Path
+  submit_csv['path'] = submit_csv.apply(lambda x: f'Database/KeyFrames{str(x[0])[:-6]}/{x[0][:-4]}/{x[1]:06}.jpg', axis = 1)
+  paths = submit_csv['path'].values
+  return paths
+
 if __name__ == "__main__":
     ids = 1
     write_csv(json_path='./dict/keyframes_id.json', ids=ids, des_path='./')
