@@ -23,6 +23,10 @@ pip install -r requirements.txt
 - [keyframe_path2id](
 https://drive.google.com/file/d/1-AldUDsWt01pfS6n2-q8c2sSFbXxOUF1/view?usp=sharing)
 
+## Download requirement files for SBRET
+- [faiss_bert_bin](https://drive.google.com/file/d/1-9yMp3SdS4EqGh6F8b2cBlgkJVQBFTCq/view?usp=sharing).
+- [keyframes_id_bert](https://drive.google.com/file/d/1-FZ4PakV70_eBT9cJavFkZEaMC2hppnL/view?usp=sharing).
+
 ## Format Keyframes_id.json
 Chứa thông tin của tất cả keyframe trong database
 ```
