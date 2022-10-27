@@ -12,3 +12,4 @@ regex==2022.9.13
 tqdm==4.64.1
 matplotlib==3.6.0
 langdetect==1.0.9
+rapidfuzz==2.12.0
