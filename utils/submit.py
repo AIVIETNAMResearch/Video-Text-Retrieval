@@ -9,7 +9,7 @@ def load_json_file(json_path: str):
 
     return {int(k):v for k,v in js.items()}
 
-def write_csv(id2img_fps, selected_image, id, des_path):
+def write_csv(id2img_fps, mode_write_csv, selected_image, id, des_path):
     des_path = os.path.join(des_path, 'submit.csv')
     video_names = []
     frame_ids = []
@@ -22,16 +22,17 @@ def write_csv(id2img_fps, selected_image, id, des_path):
     frame_ids.append(id_frame_selected)
     ############################
 
-    ### GET INFOS SUBMIT ###
-    info = copy.deepcopy(id2img_fps[id])
-    video_name = info['image_path'].split('/')[-2] + '.mp4'
-    lst_frames = info['list_shot_id']
-    lst_frames.remove(id_frame_selected)
+    if mode_write_csv == 'list_shot':
+      ### GET INFOS SUBMIT ###
+      info = copy.deepcopy(id2img_fps[id])
+      video_name = info['image_path'].split('/')[-2] + '.mp4'
+      lst_frames = info['list_shot_id']
+      lst_frames.remove(id_frame_selected)
 
-    for id_frame in lst_frames:
-      video_names.append(video_name)
-      frame_ids.append(id_frame)
-    #########################
+      for id_frame in lst_frames:
+        video_names.append(video_name)
+        frame_ids.append(id_frame)
+      #########################
 
     ### FORMAT DATAFRAME ###
     check_files = {"video_names": video_names, "frame_ids": [int(i) for i in frame_ids]}
