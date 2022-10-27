@@ -1,3 +1,6 @@
+import rapidfuzz
+from rapidfuzz import process, fuzz
+
 ocr_final = pd.read_csv('/content/drive/MyDrive/HCM_AI_Challenge_2022/database/ocr_final.txt')
 ocr_final.columns = ["video_id ", "keyframe_id", "text"]
 
