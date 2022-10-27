@@ -2,4 +2,7 @@
 ### Ví dụ: 
 ![image](https://user-images.githubusercontent.com/88385496/198220226-b1e71991-0f3a-45d8-a905-9fabcba1cbbe.png)
 
-![image](https://user-images.githubusercontent.com/88385496/198220276-6f85bbcc-f374-4de4-af0b-8f92045365fe.png)
+[
+<img width="569" alt="image" src="https://user-images.githubusercontent.com/88385496/198220403-90ee2679-1667-4be8-a18b-c97db8575204.png">
+](url)
+
