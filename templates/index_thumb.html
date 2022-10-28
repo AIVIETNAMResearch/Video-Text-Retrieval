@@ -165,6 +165,12 @@
                 </select>
         </div>
 
+        <div>
+            Search ASR: <input id="text_asr"></input>
+            <!-- label_img_path: <input id="imgpath"></input> -->
+            <button onclick="search_asr();">Search image</button>
+        </div>
+
         <!-- setup -->
         <!-- <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px;"></div>
         <div class="popup_div" id="popup_div_outer">
@@ -341,6 +347,12 @@
             window.location.href = "/textsearch?textquery="+text_query;
             
             document.getElementById('text_query').innerHTML = text_query;
+        }
+
+        function search_asr(){
+            text_asr = document.getElementById('text_asr').value;
+
+            window.open("/asrsearch?text_asr="+text_asr);
         }
 
         function reset() {

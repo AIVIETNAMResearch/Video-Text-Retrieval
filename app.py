@@ -10,6 +10,7 @@ from pathlib import Path
 
 from utils.faiss_processing import MyFaiss
 from utils.submit import write_csv, show_csv
+from utils.bert_processing import BERTSearch
 
 # http://0.0.0.0:5001/thumbnailimg?index=0
 
@@ -37,6 +38,9 @@ DictImagePath = CosineFaiss.id2img_fps
 LenDictPath = len(CosineFaiss.id2img_fps)
 print("LenDictPath: ", LenDictPath)
 # CosineFaiss.id2img_fps
+
+MyBert = BERTSearch(dict_bert_search='dict/keyframes_id_bert.json', bin_file='dict/faiss_bert.bin', mode='search')
+
 
 @app.route('/thumbnailimg')
 def thumbnailimg():
@@ -107,15 +111,28 @@ def image_search():
 @app.route('/textsearch')
 def text_search():
     print("text search")
-     # remove old file submit 
-    # submit_path = os.path.join("submission", "submit.csv")
-    # old_submit_path = Path(submit_path)
-    # if old_submit_path.is_file():
-    #     os.remove(submit_path)
 
     pagefile = []
     text_query = request.args.get('textquery')
     _, list_ids, _, list_image_paths = CosineFaiss.text_search(text_query, k=200)
+
+    imgperindex = 100 
+
+    for imgpath, id in zip(list_image_paths, list_ids):
+        pagefile.append({'imgpath': imgpath, 'id': int(id)})
+
+    data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
+    
+    return render_template('index_thumb.html', data=data)
+
+@app.route('/asrsearch')
+def asrsearch():
+    print("asr search")
+     # remove old file submit 
+
+    pagefile = []
+    text_query = request.args.get('text_asr')
+    _, list_ids, _, list_image_paths = MyBert.bert_search(text_query, k=100)
 
     imgperindex = 100 
 

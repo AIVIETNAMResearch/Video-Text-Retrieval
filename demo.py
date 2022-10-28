@@ -1,16 +1,9 @@
-from utils.ocr_processing import get_top_ocr
-import json 
-import pandas as pd 
+from utils.bert_processing import BERTSearch
 
 if __name__ == "__main__":
-    df_ocr = pd.read_csv('dict/ocr_results.txt')
-    df_ocr.columns = ["video_id ", "keyframe_id", "text"]
+    mybert = BERTSearch(dict_bert_search='dict/keyframes_id_bert.json', bin_file='dict/faiss_bert.bin', mode='search')
 
-    path_query = 'Thẩm định tượng Đức Thánh Trần ở Hồ Mây, Vũng Tàu'
-
-    df_top = get_top_ocr(path_query, df_ocr, 50)
-    # for index, row in df_top.iterrows():
-    #     print(row)
-    #     break
-
-    df_top.to_csv("demo.csv")
+    text = 'lũ lụt'
+    scores, idx_video, infos_query, image_paths = mybert.bert_search(text, k=9)
+    print(image_paths)
+    print(idx_video)
