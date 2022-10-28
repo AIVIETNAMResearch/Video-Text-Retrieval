@@ -136,7 +136,7 @@ def show_segment():
     
     imgperindex = 100 
     for shot_info in list_shot_path:
-        pagefile.append({'imgpath': shot_info['shot_path'], 'id': int(shot_info['shot_id'])})
+        pagefile.append({'imgpath': shot_info['shot_path'], 'id': int(DictKeyframe2Id[shot_info['shot_path']])})
 
     # show  around 200 key image
     frame_path = DictImagePath[id_query]["image_path"]
@@ -151,12 +151,11 @@ def show_segment():
 
     first_index_in_video = number_image_id_in_video-200 if number_image_id_in_video-200>0 else 0
     last_index_in_video = number_image_id_in_video+200 if number_image_id_in_video+200<total_image_in_video else total_image_in_video
-
     frame_index = first_index_in_video
     while frame_index < last_index_in_video:
         new_frame_name = DictId2Img[keyframe_dir][video_dir][str(frame_index)]
         frame_in_video_path =  os.path.join("Database", "KeyFrames"+keyframe_dir, video_dir, new_frame_name)
-
+        frame_in_video_path =  frame_in_video_path.replace("\\","/")
         if frame_in_video_path in DictKeyframe2Id:
             frame_id_in_video_path = DictKeyframe2Id[frame_in_video_path]
             pagefile.append({'imgpath': frame_in_video_path, 'id': int(frame_id_in_video_path)})
