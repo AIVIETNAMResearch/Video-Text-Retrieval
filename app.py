@@ -137,7 +137,8 @@ def asrsearch():
     imgperindex = 100 
 
     for imgpath, id in zip(list_image_paths, list_ids):
-        pagefile.append({'imgpath': imgpath, 'id': int(id)})
+        imgpath = imgpath.replace("\\","/")
+        pagefile.append({'imgpath': imgpath, 'id': int(DictKeyframe2Id[imgpath])})
 
     data = {'num_page': int(LenDictPath/imgperindex)+1, 'pagefile': pagefile}
     
