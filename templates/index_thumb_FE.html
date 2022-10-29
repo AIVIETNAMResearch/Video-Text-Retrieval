@@ -13,24 +13,72 @@
             margin: 0;
         }
         body{
-          margin: 0
+          margin: 0;
         }
-        button:hover{
-        color: red !important;
-        border: 4px solid red;
-       }
+        
+        .custom-btn {
+          color: #fff;
+          border-radius: 5px;
+          /* padding: 10px 25px; */
+          font-family: 'Lato', sans-serif;
+          background: transparent;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          position: relative;
+          display: inline-block;
+          box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+          7px 7px 20px 0px rgba(0,0,0,.1),
+          4px 4px 5px 0px rgba(0,0,0,.1);
+          outline: none;
+        }
+
+        .btn-13 {
+          background-color: #89d8d3;
+          background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+          border: none;
+          z-index: 1;
+        }
+        .btn-13:after {
+          position: absolute;
+          content: "";
+          width: 100%;
+          height: 0;
+          bottom: 0;
+          left: 0;
+          z-index: -1;
+          border-radius: 5px;
+          background-color: #4dccc6;
+        background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
+          box-shadow:
+          -7px -7px 20px 0px #fff9,
+          -4px -4px 5px 0px #fff9,
+          7px 7px 20px 0px #0002,
+          4px 4px 5px 0px #0001;
+          transition: all 0.3s ease;
+        }
+        .btn-13:hover {
+          color: #fff;
+        }
+        .btn-13:hover:after {
+          top: 0;
+          height: 100%;
+        }
+        .btn-13:active {
+          top: 2px;
+        }
+
         .container{
           width: 100%;
           height: 100%;
-          background-color: antiquewhite;
+          background-color: #e0e5ec;;
         }
         /* search */
         .search_container{
           width: 100%;
           height: 100px;
           display: grid;
-          grid-template-columns: 65% 35%;
-          border-bottom: 5px solid #153462;
+          grid-template-columns: 69% 31%;
+          border-bottom: 5px solid #4dccc6;
         }
         .search{
           width: 100%;
@@ -44,7 +92,7 @@
           padding: 10px
         }
         .search input{
-          width: 92%;
+          width: 96%;
           height: 50px;
           border: none;
           border-radius: 10px;
@@ -57,8 +105,7 @@
           padding-top: 20px;
         }
         .group_btn button{
-          background-color: #153462;
-          width: 160px;
+          width: 163px;
           height: 50px;
           border-radius: 10px;
           margin-right: 3%;
@@ -72,75 +119,107 @@
           width: 100%;
           height: 65px;
           display: grid;
-          grid-template-columns: auto auto auto;
+          grid-template-columns: 490px auto 390px 340px;
           padding-top: 20px;
         }
+        .selection > div {
+          text-align: center;
+        }
+
        .img_path{
         width: 98%;
         height: 100%;
-        background-color: bisque;
+        background-color: #bdc0c5;
        }
        .img_path label{
-        font-size: 23px;
-        margin-left: 10px;
+        font-size: 20px;
+        margin-left: 20px;
       }
       .img_path input{
+        height: 50px;
+        border-radius: 10px;
+        border: none;
+        margin: 5px 10px 0 10px;
+        padding-left: 5%;
+        font-size: 15px;
+      }
+      .img_path button{
+        width: 100px;
+        height: 50px;
+        color: white;
+        border-radius: 10px;
+        font-size: 15px;
+      }
+
+      .search_asr {
+        width: 98%;
+        height: 100%;
+        background-color: bdc0c5;
+      }
+      .search_asr label{
+        font-size: 20px;
+      }
+      .search_asr input{
         width: 50%;
         height: 50px;
         border-radius: 10px;
         border: none;
         margin: 5px 10px 0 10px;
         padding-left: 5%;
+        font-size: 15px;
       }
-      .img_path button{
+      .search_asr button{
         width: 100px;
         height: 50px;
-        border: none;
-        background-color: #153462;
+        /* border: none; */
+        /* background-color: #153462; */
         color: white;
         border-radius: 10px;
+        font-size: 15px;
       }
+
        .num_querry{
         width: 98%;
         height: 100%;
-        background-color: bisque;
+        background-color: bdc0c5;
        }
        .num_querry label{
         font-size: 20px;
-        margin-left: 10px;
        }
        .num_querry input{
-        width: 35%;
+        width: 15%;
         height: 50px;
         border-radius: 10px;
         border: none;
-        margin:5px 5% 0 5%;
+        margin:5px 5px 0 5px;
         padding-left: 5%;
+        font-size: 15px;
        }
        .num_querry button{
-        width: 120px;
+        width: 90px;
         height: 50px;
-        border: none;
-        background-color: #153462;
+        /* border: none; */
+        /* background-color: #153462; */
         color: white;
         border-radius: 10px;
+        font-size: 15px;
        }
        .csv{
         width: 98%;
         height: 100%;
-        background-color: bisque;
+        background-color: bdc0c5;
        }
        .csv label{
         font-size: 20px;
-        margin-left: 10px;
        }
        .csv select{
-        width: 40%;
+        width: 20%;
         height: 50px;
         border-radius: 10px;
         border: none;
-        margin: 5px 0px 0 10px;
-        padding-left: 5%;
+        margin: 5px 3px 0 10px;
+        padding-left: 5px;
+        font-size: 15px;
        }
       
         /* selection */
@@ -158,7 +237,7 @@
                 flex-direction: row;    
                 flex-wrap: wrap;
                 padding: 20px;
-                background-color: antiquewhite;
+                background-color: #e0e5ec;
                 /* height: 120px;
                 width: 516px; */
             }
@@ -178,34 +257,15 @@
                 height: 100%;
             }
     
-            .container_img_btn .btn {
-                display: none;
-                position: absolute;
-                top: 50%;
-                left: 90%;
-                transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%);
-                background-color: #BAD1C2;
-                color: #153462;
-                font-size: 16px;
-                padding: 5px 12px;
-                border: none;
-                cursor: pointer;
-                border-radius: 5px;
-                text-align: center;
-                
-            }
-    
             .container_img_btn .btn_knn {
                 display: none;
                 position: absolute;
                 top: 50%;
                 left: 10%;
-                background-color: #153462;
+                background-color: #4dccc6;
                 color: white;
                 font-size: 16px;
                 padding: 5px 12px;
-                border: none;
                 cursor: pointer;
                 border-radius: 5px;
                 text-align: center;
@@ -215,31 +275,27 @@
                 position: absolute;
                 top: 50%;
                 right: 10%;
-                /* transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%); */
-                background-color: #153462;
+                background-color: #4dccc6;
                 color: white;
                 font-size: 16px;
                 padding: 5px 12px;
-                border: none;
                 cursor: pointer;
                 border-radius: 5px;
                 text-align: center;
             }
             
-            .container_img_btn .btn_select:hover {
-                color: red !important;
-                border: 4px solid red;
+            .container_img_btn .btn_knn:hover{
+              background-color: #145552;
+            }
+
+            .container_img_btn .btn_select:hover{
+              background-color: #145552;
             }
     
-            .container_img_btn .btn_knn:hover {
-                color: red !important;
-                border: 4px solid red;
-            }
             .container_img_btn img:hover{
-                border: 4px solid #4FA095;
+                border: 4px solid #4dccc6;
             }
-            /* .container_img_btn img:focus{
+            /* .container_img_btn img:focus{hoverImg
                 border: 1px solid blue;
             } */
             /* poup */
@@ -252,7 +308,6 @@
                 position: fixed;
                 margin-left: 25%;
                 margin-top: 60%;
-                /* border: 4px solid #4FA095; */
                 color: rgb(0,255,0);
                 font-size: 30;
             }
@@ -268,9 +323,9 @@
             <input id="text_query" type="text" placeholder="Text query">
           </div>
           <div class="group_btn">
-            <button onclick="search();">Search</button>
-            <button onclick="reset()">Clear</button>
-            <button onclick="download_btn()">Download</button>
+            <button class="custom-btn btn-13" onclick="search();"><span>Search</span></button>
+            <button class="custom-btn btn-13" onclick="reset()"><span>Clear</span></button>
+            <button class="custom-btn btn-13" onclick="download_btn()"><span>Download</span></button>
           </div>
   
         </div>
@@ -278,29 +333,33 @@
           <div class="img_path">
             <label for="">IMAGE PATH</label>
             <input id="search_image_path" type="text" placeholder="C00_V0130/028539"></input>
-            <button onclick="search_image_path();">Search</button>
+            <button class="custom-btn btn-13" onclick="search_image_path();"><span>Search</span></button>
           </div>
+
+          <div class="search_asr">
+            <label for="">SEARCH ASR</label>
+             <input id="text_asr" type="text"></input>
+            <button class="custom-btn btn-13" onclick="search_asr();"><span>Search</span></button>
+        </div>
+
+        <div class="csv">
+          <label for="mode_csv">CHOSE A MOVE WRITE CSV</label>
+          <select name="" id="mode_write_csv">
+            <option value="single">Single</option>
+            <option value="list_shot">List_shot</option>
+          </select>
+          
+        </div>
   
           <div class="num_querry">
             <label for="">NUM OF QUERY</label>
             <input type="number" placeholder="1">
-            <button onclick="visualize();">Visualize</button>
+            <button class="custom-btn btn-13" onclick="visualize();"><span>Visualize</span></button>
           </div>
-          <div class="csv">
-            <label for="mode_csv">CHOSE A MOVE WRITE CSV</label>
-            <select name="" id="mode_write_csv">
-              <option value="single">Single</option>
-              <option value="list_shot">List_shot</option>
-            </select>
-            
-          </div>
+      
         </div>
 
-        <div>
-            Search ASR: <input id="text_asr"></input>
-            <!-- label_img_path: <input id="imgpath"></input> -->
-            <button onclick="search_asr();">Search image</button>
-        </div>
+        
 
         <!-- <div style="height: 5px; width: 100%; background-color: black; margin-bottom: 5px; margin-top: 5px;"></div> -->
         <div id="div_img">
@@ -374,48 +433,12 @@
                 $("#div_img").append(
                     `<div class= "container_img_btn">
                         <button class="btn_knn" onClick="go_img_search(${index})">KNN</button>
-                        <button class="btn_select" onClick="writecsv(${index},'${index},${item.imgpath}')">Select</button>
-                        <img  class="hoverImg" onmouseover="mouseOver(${index})" onmouseout="mouseOut(${index})" src="get_img?fpath=${item.imgpath}">
+                        <button class="btn_select" onClick="writecsv(${index},'${index},${item.imgpath}')">SELECT</button>
+                        <img class="hoverImg" onmouseover="mouseOver(${index})"  onclick="show_list_segment(${index})" onmouseout="mouseOut(${index})" src="get_img?fpath=${item.imgpath}">
                         
                     </div>`
                 )
             });
-            
-            // for (i = 0; i < data['pagefile'].length; i++){
-            //     imgpath = data['pagefile'][i]['imgpath']
-            //     id = data['pagefile'][i]['id']
-                
-            //     var iImg = document.createElement('img');
-            //     iImg.setAttribute("src", "get_img?fpath="+imgpath);
-            //     console.log("get_img?fpath="+imgpath)
-            //     iImg.setAttribute("border", 0);
-            //     iImg.setAttribute("alt", imgpath);
-            //     iImg.setAttribute("id", id);
-            //     iImg.setAttribute("width", 300);
-            //     iImg.setAttribute("height", 180);
-            //     iImg.setAttribute("onclick", "show_list_segment('"+id+"');");
-            //     var box = document.createElement('button');
-            //     box.textContent = "sellect";
-            //     box.setAttribute('class', 'btn');
-            //     box.setAttribute('onclick',  "writecsv('"+id+","+imgpath+"');");
-
-            //     var box_knn = document.createElement('button');
-            //     box_knn.textContent = "knn";
-            //     box_knn.setAttribute('class', 'btn_knn');
-            //     box_knn.setAttribute('onclick',  "go_img_search('"+id+"');");
-
-            //     var div_image_button = document.createElement('div');
-            //     div_image_button.setAttribute('class', 'container_img_btn');
-
-                
-            //     div_image_button.appendChild(box);
-            //     div_image_button.appendChild(box_knn);
-            //     div_image_button.appendChild(iImg);
-            //     document.getElementById(div_id_image).appendChild(div_image_button);
-            //     document.getElementById("div_img").appendChild(iImg);
-               
-
-            // }
         
         }
         
@@ -448,7 +471,6 @@
         }
 
         function writecsv(id,info_key){
-            // console.log("info_key: " + info_key)
             hoverImg[id].style.border="4px solid red";
             // alert("write list shot with id "+id);
             // window.open("/writecsv?imgid="+id);
