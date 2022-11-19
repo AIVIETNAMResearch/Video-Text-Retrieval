@@ -5,6 +5,7 @@
 - [x] [NLP_Processing](https://github.com/anminhhung/Video-Text-Retrieval/blob/main/utils/nlp_processing.py)
 - [x] [Faiss_Processing](https://github.com/anminhhung/Video-Text-Retrieval/blob/main/utils/faiss_processing.py)
 - [x] Reranking
+- [x] [ASR](https://huggingface.co/nguyenvulebinh/wav2vec2-base-vietnamese-250h)
 - [ ] [CLIP](https://github.com/openai/CLIP)
 - [ ] [TransNet](https://github.com/soCzech/TransNet)
 - [ ] OCR 
