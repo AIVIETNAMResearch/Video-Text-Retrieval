@@ -7,7 +7,8 @@
 - [x] Reranking
 - [x] [CLIP](https://github.com/openai/CLIP)
 - [x] [TransNet](https://github.com/soCzech/TransNet)
-- [x] OCR 
+- [x] OCR
+- [x] ASR 
 - [x] [Faster RCNN](https://tfhub.dev/google/faster_rcnn/openimages_v4/inception_resnet_v2/1)
 ---
 ## Setup
