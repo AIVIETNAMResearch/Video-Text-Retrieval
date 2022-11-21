@@ -10,6 +10,7 @@ import googletrans
 import translate
 import underthesea
 from pyvi import ViUtils, ViTokenizer
+from difflib import SequenceMatcher
 
 class Translation():
     def __init__(self, from_lang='vi', to_lang='en', mode='google'):
@@ -48,6 +49,18 @@ class Text_Preprocessing():
         with open(stopwords_path, 'rb') as f:
             lines = f.readlines()
         self.stop_words = [line.decode('utf8').replace('\n','') for line in lines]
+
+    def find_substring(self, string1, string2):
+        """
+        It uses the SequenceMatcher class from the difflib module to find the longest matching substring
+        between two strings
+        
+        :param string1: The first string to be compared
+        :param string2: The string to search for
+        :return: The longest common substring between string1 and string2.
+        """
+        match = SequenceMatcher(None, string1, string2, autojunk=False).find_longest_match(0, len(string1), 0, len(string2))
+        return string1[match.a:match.a + match.size].strip()
 
     def remove_stopwords(self, text):
         """
