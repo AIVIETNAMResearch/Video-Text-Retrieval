@@ -17,17 +17,17 @@ pip install git+https://github.com/openai/CLIP.git
 pip install -r requirements.txt
 ```
 ## Download requirement files
-- [Cosine_bin_file](https://drive.google.com/file/d/175BDkANhtbSeWFbYxBSAMmgLq3_VpXoN/view?usp=share_link)
-- [Keyframes_id](https://drive.google.com/file/d/1ZAgNnH7TLbMiyUkpKK5tbzB4RbcfyOVu/view?usp=share_link)
-- [dict_id2img_path](https://drive.google.com/file/d/1-Hn-_nOF2ZQ9EUZrWrcNz2drEUtsFhr1/view?usp=share_link)
-- [dict_img2id_path](https://drive.google.com/file/d/1--GJzxAtI4_UbZDfTSHlsWCiIjHpo98Q/view?usp=share_link)
-- [keyframe_path2id](https://drive.google.com/file/d/1-341qtSpVfdHYJA8GB5nuq54uOACpvbr/view?usp=share_link)
-- [info_ocr](https://drive.google.com/file/d/1dW_YBEtiLN2Rh1oFKQqAyOLUZoi07gTb/view?usp=share_link)
-- [info_asr](https://drive.google.com/file/d/1j3D2z6LN7fzK9SlV7u5taaWRnmjXyGpH/view?usp=share_link)
+- [Cosine_bin_file](https://drive.google.com/file/d/198cixIaMIkOYV5b_bRgmD2udtXXXKFkY/view?usp=share_link)
+- [Keyframes_id](https://drive.google.com/file/d/1T4PDAxsbIzXSjlrggliiDaFRnAXE8w3F/view?usp=share_link)
+- [dict_id2img_path](https://drive.google.com/file/d/1kVeDkZ2bY5gOqUUcdkDqbkNjm4Uz_hFf/view?usp=share_link)
+- [dict_img2id_path](https://drive.google.com/file/d/1ULo9XQYgV1AOki-Khnc-zwlaj5OrGA5S/view?usp=share_link)
+- [keyframe_path2id](https://drive.google.com/file/d/1aYz1OcTkcg4kwDB-igRuf5wJLG0UnZuK/view?usp=share_link)
+- [info_ocr](https://drive.google.com/file/d/1oNrDHuYeHL4N0nwmx3JG9TLvsCqRbqH1/view?usp=share_link)
+- [info_asr](https://drive.google.com/file/d/1DJODlduvLSVSSrWRLhSYvPsc5c6Vm6eM/view?usp=share_link)
 
 ## Download requirement files for SBRET
-- [faiss_bert_bin](https://drive.google.com/file/d/1-9yMp3SdS4EqGh6F8b2cBlgkJVQBFTCq/view?usp=share_link).
-- [keyframes_id_bert](https://drive.google.com/file/d/1-FZ4PakV70_eBT9cJavFkZEaMC2hppnL/view?usp=share_link).
+- [faiss_bert_bin]https://drive.google.com/file/d/1NbGnNHFgV_nWK-rjUNvvEneebqZ3JqMw/view?usp=share_link).
+- [keyframes_id_bert](https://drive.google.com/file/d/1DpecPqSgk5R6sfy_EjuP0IWwbvG2wbeb/view?usp=share_link).
 
 ## Format Keyframes_id.json
 Chứa thông tin của tất cả keyframe trong database
