@@ -1,12 +1,9 @@
-from utils.faiss_processing import MyFaiss
+from utils.bert_processing import BERTSearch
+from utils.ocr_processing import fill_ocr_results
 
-bin_file='dict/faiss_cosine.bin'
-json_path = 'dict/keyframes_id.json'
+if __name__ == "__main__":
+    with open("dict/info_ocr.txt", "r", encoding="utf8") as fi:
+        list_ocr_results = list(map(lambda x: x.replace("\n",""), fi.readlines()))
 
-cosine_faiss = MyFaiss('Database', bin_file, json_path)
-
-text = 'trận bóng đá Việt Nam'
-scores, _, image_paths = cosine_faiss.text_search(text, k=9)
-cosine_faiss.show_images(image_paths)
-
-print(image_paths[0])
+    list_ocr = fill_ocr_results("trương mỹ hoa", list_ocr_results)
+    print(list_ocr)

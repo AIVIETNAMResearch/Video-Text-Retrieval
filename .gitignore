@@ -141,3 +141,18 @@ Database/
 
 # file query
 faiss_cosine.bin
+keyframes_id.json
+dict_image_path.json
+dict_img2id_path.json
+dict_id2img_path.json
+keyframe_path2id.json
+faiss_bert.bin
+keyframes_id_bert.json
+
+# folder csv btc 
+keyframe_p
+
+# support model csv
+info_ocr.txt
+info_asr.txt
+Batch_1_2.csv

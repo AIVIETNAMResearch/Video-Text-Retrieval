@@ -49,8 +49,8 @@ LenDictPath = len(CosineFaiss.id2img_fps)
 print("LenDictPath: ", LenDictPath)
 # CosineFaiss.id2img_fps
 
+# BERT
 MyBert = BERTSearch(dict_bert_search='dict/keyframes_id_bert.json', bin_file='dict/faiss_bert.bin', mode='search')
-
 
 @app.route('/thumbnailimg')
 def thumbnailimg():
@@ -211,8 +211,8 @@ def show_segment():
     total_image_in_video = int(DictImg2Id[keyframe_dir][video_dir]["total_image"])
     number_image_id_in_video = int(DictImg2Id[keyframe_dir][video_dir][image_name])
 
-    first_index_in_video = number_image_id_in_video-10 if number_image_id_in_video-10>0 else 0
-    last_index_in_video = number_image_id_in_video+10 if number_image_id_in_video+10<total_image_in_video else total_image_in_video
+    first_index_in_video = number_image_id_in_video-40 if number_image_id_in_video-40>0 else 0
+    last_index_in_video = number_image_id_in_video+40 if number_image_id_in_video+40<total_image_in_video else total_image_in_video
     frame_index = first_index_in_video
     while frame_index < last_index_in_video:
         new_frame_name = DictId2Img[keyframe_dir][video_dir][str(frame_index)]
@@ -344,8 +344,8 @@ def search_image_path():
     total_image_in_video = int(DictImg2Id[keyframe_dir][video_dir]["total_image"])
     number_image_id_in_video = int(DictImg2Id[keyframe_dir][video_dir][image_name])
 
-    first_index_in_video = number_image_id_in_video-10 if number_image_id_in_video-10>0 else 0
-    last_index_in_video = number_image_id_in_video+10 if number_image_id_in_video+10<total_image_in_video else total_image_in_video
+    first_index_in_video = number_image_id_in_video-40 if number_image_id_in_video-40>0 else 0
+    last_index_in_video = number_image_id_in_video+40 if number_image_id_in_video+40<total_image_in_video else total_image_in_video
 
     frame_index = first_index_in_video
     while frame_index < last_index_in_video:
