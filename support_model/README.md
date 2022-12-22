@@ -1,5 +1,36 @@
+# Usage
 ## OCR
-python OCR.py --i keyframe_id_third.json --input_csv_path OCR_third.csv --o OCR_third_2.csv --save_per_image 100
+```
+python OCR.py \
+--i keyframe_id_third.json \
+--o OCR_third_2.csv \
+--save_per_image 100
+```
+**Arguments**:
+- ```--i``` : File json contains image_paths
+- ```--o``` : Path to save output (.csv file)
+- ```--save_per_image``` : Num images to save output once
 
+**Optional Arguments**
+- ```--input_csv_path```  : Path to input csv (If you run this code before and save output to 1.csv and you wanna run continue --> You can add this argument.)
 
-python OCR.py --i keyframe_batch3_third.json --input_csv_path ocr_C02_V03_third_1.csv --o ocr_C02_V03_third_2.csv --save_per_image 100
+<br>
+<hr>
+<br>
+
+ ## Place
+```
+python detect.py \
+--json_path keyframes_id.json \
+--output_csv_path place.csv \
+--save_per_image 100
+```
+**Arguments**:
+- ```--json_path``` : File json contains image_paths
+- ```--output_csv_path``` : Path to save output (.csv file)
+- ```--save_per_image``` : Num images to save output once
+
+**Optional Arguments**
+- ```--input_csv_path```  : Path to input csv (If you run this code before and save output to 1.csv and you wanna run continue --> You can add this argument.)
+- ```prefix_path```  : prefix to add into image_path. Ex: Database/1.jpg => /content/Database/1.jpg if prefix_path = /content
+
