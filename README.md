@@ -26,7 +26,7 @@ pip install -r requirements.txt
 - [info_asr](https://drive.google.com/file/d/1DJODlduvLSVSSrWRLhSYvPsc5c6Vm6eM/view?usp=share_link)
 
 ## Download requirement files for SBRET
-- [faiss_bert_bin]https://drive.google.com/file/d/1NbGnNHFgV_nWK-rjUNvvEneebqZ3JqMw/view?usp=share_link).
+- [faiss_bert_bin](https://drive.google.com/file/d/1NbGnNHFgV_nWK-rjUNvvEneebqZ3JqMw/view?usp=share_link).
 - [keyframes_id_bert](https://drive.google.com/file/d/1DpecPqSgk5R6sfy_EjuP0IWwbvG2wbeb/view?usp=share_link).
 
 ## Format Keyframes_id.json
