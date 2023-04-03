@@ -31,7 +31,7 @@ with open("dict/info_ocr.txt", "r", encoding="utf8") as fi:
 
 with open("dict/info_asr.txt", "r", encoding="utf8") as fi: 
     ListASRResults = list(map(lambda x: x.replace("\n",""), fi.readlines()))
-df_asr = pd.read_csv("dict/info_asr.txt", delimiter=",;", header=None)
+df_asr = pd.read_csv("dict/info_asr.txt", delimiter=",", header=None)
 df_asr.columns = ["video_id", "frame_id", "asr"]    
         
 with open(json_id2img_path, 'r') as f:

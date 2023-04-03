@@ -155,3 +155,6 @@ keyframe_p
 # support model csv
 info_ocr.txt
 info_asr.txt
+
+# query-pack-x
+submission/*/*/*.txt
