@@ -1,0 +1,89 @@
+'Hai người đàn ông đang đua xe điều khiển từ xa trên một mô hình đường đua thu nhỏ. Một người mặc áo màu xanh và đội mũ trắng.' -----baseline
+
+'Hai anh công an đang dẫn một tội phạm nam. Hai anh công an mặc đồng phục ngành màu xanh lá và người tội phạm mặc áo màu hồng đỏ. Ba người dàn hàng ngang và đi thẳng, tội phạm đi ở giữa. ' -------baseline
+
+'Hãy tìm đoạn video trong đó có một người nữ mặc áo dài màu xanh lá cây đang đứng chụp hình cạnh các chậu hoa màu hồng nhạt. Đây là cảnh tại một trung tâm hoa kiểng.' ------baseline
+
+'Một chiếc thuyền cổ có mũi thuyền màu đỏ. Ở đầu thuyền có nhiều hoa văn hình bông hoa 5 cánh màu trắng. Phần dưới thân thuyền màu xanh đậm.' ----baseline
+
+'Một con mèo màu nâu vàng được một bạn nữ mặc váy màu tím nhạt vuốt ve và bế lên. Bên cạnh là một kệ sách rất cao với rất nhiều sách. ' -----baseline
+
+'Bác sĩ/y tá đang chích thuốc vào tay cho một cháu bé. Cháu bé mặc áo màu vàng nhạt và dây chuyền màu nâu đỏ.' ------baseline
+
+'Hai bạn nữ trẻ đang đứng ở hành lang toa tàu, Một người đang đứng gần cửa sổ của toa tàu, người còn lại đang dùng điện thoại để chụp hình cho bạn mình.' ---baseline
+
+'Một phóng sự về một buổi triển lãm tranh về chiến trường kháng chiến miền Nam. Giữa phóng sự có đoạn phỏng vấn họa sĩ Trần Thanh Bình - Giám đốc Bảo tàng Mỹ Thuật TP.HCM.' ---------baseline / baseline + OCR
+
+'Khung cảnh phóng sự trong một nhà xưởng đóng gói sản phẩm. Công nhân trong xưởng mặc đồng phục màu xanh dương đậm. Họ đang đóng gói vật dụng/đồ chơi làm bằng nhựa/cao su. Các món đồ vật có màu xanh lá mạ và màu hồng.' ----baseline
+
+'Một đoạn clip ngắn, trong đó có nhiều búp bê được làm từ đất sét. Trong cảnh có 2 quả táo, 1 quả màu xanh, 1 quả màu vàng. Có 1 búp bê mặc bộ đồ màu đỏ đang ngồi trên ghế. Có nhiều búp bê đội mũ chóp nhọn màu đỏ hay xanh lá cây.' -----baseline
+
+'Khung cảnh một chiếc trống trường nằm trước phòng P.111. Sau đó là khung cảnh cổng trường với băng rôn "Mỗi ngày đến trường là một ngày vui".' ----baseline / baseline + IR
+
+'Một đĩa thức ăn được trang trí là một trái xoài chính tạo hình con gà. Sau đó là một cái bánh rau câu được tạo hình có 3 trái xoài ở trên. ' -----baseline + IR
+
+'Cảnh bay dù lượn trên miệng núi lửa. Chiếc dù lượn có màu đỏ, một biên màu trắng, một biên màu xanh.Trong đoạn clip có thể thấy vùng biển xanh rất đẹp.' -------baseline + IR
+
+'Có thể nhìn thấy một chiếc xe tải cứu hộ của "Cứu hộ giao thông 118 TG" ở chính giữa khung hình. Bên phải có 2 chiếc xe tải có thùng hàng màu trắng lần lượt chạy qua. Một trong hai chiếc xe đó có dòng chữ "CÔNG TY CỔ  PHẦN GÒ ĐÀNG" trên thùng hàng.' ---baseline+OCR
+
+'Một bạn nữ sinh viên mặc áo trắng có nhiều họa tiết nhỏ, đang đeo khẩu trang và mắt kiếng. Bạn nữ đang trả lời phỏng vấn, đứng trước một dãy xe dạp màu xanh da trời.' ----basline
+
+'Một người đàn ông mặc áo màu tối, đang cầm một con thú nhồi bông là biểu tượng linh vật của Seagames 31. Sau lưng của ông là nhiều thú nhồi bông do người khuyết tật làm.' --------baseline
+
+'Hơn 10 bạn trẻ, hầu hết đang mặc đồng phục xanh nước biển và cổ áo màu đỏ. Các bạn đang đứng trước dòng chữ "Tỏa tri thức vượt mùa thi". Phía sau là đồng hồ đang chỉ 07 giờ.' ----baseline / baseline+IR / baseline + OCR
+
+'Rất nhiều người mặc áo màu nâu đỏ, chia làm 2 đội, đứng trên 1 chiếc cầu bắt ngang sông. Phần giữa chiếc cầu hơi chìm dưới nước. Cả hai đội liên tục đạp mạnh lên chiếc cầu để làm cho đối phương rơi xuống nước. Phía xa là những cây dừa và khu nhà với mái lợp bằng lá. ' --baseline
+
+'Một chiếc xe tải có đầu xe sơn màu vàng và xanh lá cây đang được một cảnh sát giao thông hướng dẫn đi qua thiết bị cân tải trọng trên quốc lộ 1A.' --baseline
+
+'Một người đàn ông mặc áo sọc màu xanh trắng đang cân một vật gì đó. Chỉ số của cân cho thấy vật này nặng khoảng 10-12kg.' -----------baseline
+
+'Hai nữ thí sinh của cuộc thi Hoa hậu du lịch biển Việt Nam 2022 đang bước đi vào một thắng cảnh tại Nha Trang. Một thí sinh nữ mặc áo dài màu xanh da trời. Thắng cảnh là một ngôi tháp theo kiến trúc cổ của dân tộc Chăm.' -- Baseline
+
+'Cuộc thi chế biến các món ăn từ tôm hùm. Trong đoạn video có rất nhiều món ăn chế biến từ tôm hùm.' -----Baseline + Image Retrieval
+
+'Bản tin nói về một nhà hàng nổi có hình dạng như một cung điện châu Á. Mái của nhà hàng có màu xanh lá cây. Nhà hàng từng tiếp đón nhiều nhân vật nổi tiếng như Nữ hoàng Elizabeth II hay tài tử Tom Cruise.' --------- Baseline / baseline + ASR
+
+'Đoạn video trả lời phỏng vấn của bà Trương Mỹ Hoa - nguyên phó chủ tịch nước. Bà mặc áo dài sẫm màu với họa tiết là các bông hoa trắng. Phía sau bà là môt bức tranh tường về làng chài với nhiều phụ nữ đội nón lá đang lao động. ' -----baseline + OCR
+
+'Đây là một cảnh trong một đoạn video về một ngày lễ ở nước ngoài. Trong khung cảnh đó có rất nhiều người. Có một cậu bé mang chiếc mặt nạ Hacker Anonymous phía sau đầu.' ---- baseline
+
+'Khung cảnh một con đường với hai bên là hàng cây xanh, không có (hoặc khó thấy) nhà cửa trong khung hình. Phía góc trái là một con chó đang đứng trên đường. Phía bên phải là một người đang chạy một chiếc xe máy. ' ----- baseline
+
+'Hình ảnh các đường ống vận chuyển nhiên liệu màu đỏ tiếp sau đó là hình ảnh bên ngoài của một chiếc máy bay Boeing.' -----baseline / baseline + image retrieval
+
+'Hơn 20 du khách nước ngoài đang mặc áo dài Việt Nam với nhiều màu sắc (xanh, đỏ, vàng) và đứng trước một cổng làng truyền thống của Việt Nam. Đoàn du khách này đang sắp hàng ngang để chuẩn bị chụp ảnh.' -------baseline
+
+'Trong clip là cảnh 3 chiếc tàu (Saigon Waterbus) tại một cảng trên sông. Mỗi chiếc tàu sơn màu vàng và có phần phía trên mái màu trắng. Tiếp theo đó là hình ảnh một anh cảnh sát giao thông đang hỏi thăm một anh lái thuyền trên một con thuyền.' -------- baseline + image retrieval
+
+'Một bé gái (người nước ngoài) đang được bế. Cháu bé đeo 1 balo màu hồng, có vẽ hình 1 gương mặt dễ thương (đang nhắm mắt). Cháu bé và người thân đang trong một khu mua sắm tại Chợ Bến Thành.' ----------- baseline
+
+'Trong clip có hình 3 bức tranh đang treo trên tường. Các bức trang có nền màu vàng, và vẽ hình các thiếu nữ.' ------baseline
+
+'Một bạn nữ mặc áo màu hồng và đeo mắt kiêng đang tô tượng. Bức tượng là một búp  bê có tóc màu vàng, dây cột tóc màu đỏ (Đây là mẩu tin chi tiết, không phải đoạn tóm tắt ở 1 phút đầu của video)' ----- baseline / baseline + image retrieval
+
+'Một đoạn video liên tiếp về một người đàn ông mặc áo màu đen đang đeo trên ngón tay một thiết bị đo y tế. Thiết bị đo y tế này có màu đỏ cam ở mặt trên và màu trắng ở mặt dưới.' -----baseline / baseline + image retrieval
+
+'Một chú chó đang đứng trên bục nhận giải nhất cùng với chủ nhân của mình. Chú giành được giải trong một cuộc thi chạy cùng người chủ.' -----baseline + image retrieval
+
+'Đoạn video phóng sự về một cụ bà người Ấn Độ mặc trang phục màu cam và xanh. Bà được trở về quê tại Pakistan sau nhiều năm. ' -----baseline / baseline + OCR
+
+'Bản tin về việc hạ thủy 1 chiếc siêu tàu cao tốc (tàu thủy). Thân tàu sơn màu đỏ với một vài vạch màu trắng, và có 5 ngôi sao màu trắng. Trên đỉnh chiếc tàu có lá cờ Việt Nam.  (Đây là đoạn clip tin tức đầy đủ, không phải đoạn giới thiệu tóm tắt trong 1 phút đầu của chương trình)' ----baseline / baseline + image retrieval
+
+'Tìm đoạn clip ngắn trong phóng sự về hiện tượng nguyệt thực toàn phần, nhưng chúng ta có thể thấy rõ mặt trăng và một bức tượng màu hồng - tím (nhìn có vẻ giống như tượng nữ thần Athena)' --baseline / baseline + OCR
+
+'Cảnh người dân Nhật Bản ở Hiroshima thả đèn lồng trên sông để tưởng niệm những người đã mất vì bom nguyên tử' ------baseline / baseline + OCR
+
+'Một người đang chế tạo một thiết bị. Thiết bị này trông giống một chiếc xe đạp có thân xe màu xanh đậm, cho phép người sử dụng vừa tập đi bộ (tập thể dục trên máy đi bộ), vừa di chuyển trên đường.' ------ baseline
+
+'Đoạn video trả lời phỏng vấn của một anh mặt áo màu xanh lá, mặt được sơn hóa trang màu xanh lá. Trên áo của anh này có thể thấy số 106 to.' ----baseline
+
+'Đoạn clip về một loại vật liệu xây dựng với mục đích tiết kiệm năng lượng. Trong đoạn clip có một khối lập phương màu xanh lá cây bao quanh là bóng tối. Loại vật liệu này hấp thụ ánh sáng ban ngày và phát sáng về đêm.' -------baseline
+
+'Hai bạn trẻ mặc áo dài đỏ, đeo khẩu trang, đang đứng xem sách. Bạn nam mặc áo dài đỏ có các họa tiết hình tròn (lớn). Bạn nữ mặc áo dài đỏ và quần xanh lá. Sau lưng là các kệ sách với nhiều quyển sách.' -------baseline
+
+'Đoạn video một nữ dẫn chương trình đang giới thiệu trên màn hình tin tức một chú rùa. Chú rùa này ăn một trái chuối chín vàng sau đó ăn một trái dưa chuột. ' -----baseline/baseline+image retrieval
+
+'Trong đoạn clip có cảnh một người áo xanh đang đứng giữa hai bưc tượng con hổ màu trắng. Cảnh quay này trong một ngô chùa tên là "Bửu Long Cổ Tự"' ------baseline / baseline + image retrieval / baseline + ocr
+
+['Tìm thời điểm giới thiệu chiếc túi màu nâu có có hình vẽ món bún mắm (với tô bún, đôi đũa, dĩa rau, chén ớt và chén nước chấm)' ------baseline
