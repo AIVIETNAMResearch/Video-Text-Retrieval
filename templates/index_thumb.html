@@ -486,7 +486,7 @@
                 // console.log('item: ' + JSON.stringify(item))
                 $("#div_img").append(
                     `<div class= "container_img_btn"  onmouseover="mouseOver(${index})" onmouseout="mouseOut(${index})">
-                        <button class="btn_knn" onClick="go_img_search(${item.id})">KNN</button>
+                        <button class="btn_knn" onClick="go_img_search(${item.id})">IR</button>
                         <button class="btn_select" onClick="writecsv(${index},'${item.id},${item.imgpath}')">SELECT</button>
                         <img class="hoverImg" onclick="show_list_segment(${item.id})" src="get_img?fpath=${item.imgpath}">
                         
